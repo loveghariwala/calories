@@ -61,6 +61,18 @@ export const Navbar: React.FC = () => {
     { label: 'USDA Standards', href: '/#faq', icon: BookOpen },
   ];
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('/#') && (pathname === '/' || pathname === '')) {
+      e.preventDefault();
+      const targetId = href.replace('/#', '');
+      const el = document.getElementById(targetId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+        window.history.pushState(null, '', href);
+      }
+    }
+  };
+
   return (
     <>
       <header
@@ -102,6 +114,7 @@ export const Navbar: React.FC = () => {
                   <Link
                     key={link.label}
                     href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
                     className={`px-3.5 py-2 rounded-full text-xs font-sans font-medium transition-all flex items-center gap-1.5 whitespace-nowrap ${
                       isActive
                         ? 'bg-white text-[#C4552D] font-bold border border-[#EAE3D9] shadow-2xs'
@@ -204,7 +217,10 @@ export const Navbar: React.FC = () => {
                 <Link
                   key={link.label}
                   href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(e) => {
+                    handleNavClick(e, link.href);
+                    setIsMobileMenuOpen(false);
+                  }}
                   className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-white border border-[#EAE3D9] text-sm font-sans font-semibold text-[#181513] hover:border-[#C4552D] hover:text-[#C4552D] transition-colors"
                 >
                   <Icon className="w-4 h-4 text-[#C4552D]" />

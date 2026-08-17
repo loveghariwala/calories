@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { FoodItem, MealType } from '@/types/food';
 import { addMealEntry } from '@/lib/storage';
-import { ArrowUpRight, Loader2 } from 'lucide-react';
+import { ArrowUpRight, Loader2, Sparkles } from 'lucide-react';
+import { MacroOrbital3D } from './MacroOrbital3D';
 import Link from 'next/link';
 
 interface HeroNutritionStudioProps {
@@ -171,10 +172,21 @@ export const HeroNutritionStudio: React.FC<HeroNutritionStudioProps> = ({ initia
             </div>
           </div>
 
-          <div className="p-4 rounded-xl bg-white border border-[#EAE3D9] flex items-baseline justify-between shadow-2xs">
-            <span className="text-xs font-sans text-[#786C62]">Calibrated Energy Yield:</span>
-            <div className="text-3xl font-serif font-bold text-[#181513] flex items-baseline gap-1">
-              {calories} <span className="text-xs font-sans font-normal text-[#C4552D]">kcal</span>
+          <div className="p-4 rounded-2xl bg-white border border-[#EAE3D9] flex items-center justify-between shadow-2xs">
+            <div>
+              <span className="text-xs font-sans text-[#786C62] block">Calibrated Yield:</span>
+              <div className="text-3xl font-serif font-bold text-[#181513] flex items-baseline gap-1 mt-0.5">
+                {calories} <span className="text-xs font-sans font-normal text-[#C4552D]">kcal</span>
+              </div>
+            </div>
+            <div className="shrink-0 -my-3">
+              <MacroOrbital3D
+                calories={calories}
+                protein={protein}
+                carbs={carbs}
+                fat={fat}
+                size={96}
+              />
             </div>
           </div>
 

@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Flame, Percent, Activity, Scale, Sliders, Check, ArrowRight, Award } from 'lucide-react';
+import { Flame, Percent, Activity, Scale, Sliders, Check, ArrowRight, Award, Sparkles } from 'lucide-react';
 import { saveDailyTargets } from '@/lib/storage';
+import { InteractiveTilt } from './InteractiveTilt';
+import { MacroOrbital3D } from './MacroOrbital3D';
 
 type UnitSystem = 'imperial' | 'metric';
 type Gender = 'male' | 'female';
@@ -368,21 +370,42 @@ export const NutritionCalculators: React.FC = () => {
             </div>
 
             {/* Right Telemetry Readout */}
-            <div className="lg:col-span-5 bg-[#FAF8F5] border border-[#EAE3D9] rounded-2xl p-6 space-y-6">
+            <div className="lg:col-span-5 bg-[#FAF8F5] border border-[#EAE3D9] rounded-2xl p-6 space-y-6 flex flex-col justify-between">
               <div>
-                <span className="text-[10px] font-sans uppercase tracking-widest text-[#786C62] font-bold block mb-1">
-                  Daily Caloric Target
-                </span>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-4xl sm:text-5xl font-serif font-bold text-[#181513]">
-                    {targetCalories}
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-sans uppercase tracking-widest text-[#786C62] font-bold block">
+                    Daily Caloric Target
                   </span>
-                  <span className="text-sm font-bold text-[#C4552D]">kcal / day</span>
+                  <span className="text-[10px] font-sans font-bold text-[#C4552D] uppercase flex items-center gap-1">
+                    <Sparkles className="w-3 h-3" /> Live 3D Orbit
+                  </span>
                 </div>
-                <div className="text-xs text-[#786C62] mt-1 flex items-center gap-3">
-                  <span>BMR: <strong>{Math.round(bmr)} kcal</strong></span>
-                  <span>•</span>
-                  <span>TDEE: <strong>{tdee} kcal</strong></span>
+
+                <div className="flex items-center justify-between gap-4 mt-2">
+                  <div>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-4xl sm:text-5xl font-serif font-bold text-[#181513]">
+                        {targetCalories}
+                      </span>
+                      <span className="text-sm font-bold text-[#C4552D]">kcal / day</span>
+                    </div>
+                    <div className="text-xs text-[#786C62] mt-1 flex items-center gap-2">
+                      <span>BMR: <strong>{Math.round(bmr)}</strong></span>
+                      <span>•</span>
+                      <span>TDEE: <strong>{tdee}</strong></span>
+                    </div>
+                  </div>
+
+                  {/* 3D Orbit Visualization */}
+                  <div className="shrink-0 -my-3">
+                    <MacroOrbital3D
+                      calories={targetCalories}
+                      protein={targetProtein}
+                      carbs={targetCarbs}
+                      fat={targetFat}
+                      size={130}
+                    />
+                  </div>
                 </div>
               </div>
 

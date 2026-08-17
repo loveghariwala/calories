@@ -27,8 +27,10 @@ export const metadata: Metadata = {
   description:
     'A beautifully curated guide to 300,000+ USDA whole foods, calories, macronutrients, and daily meal planning. Clean, accurate, and ad-free.',
   keywords: [
+    'calorie calculator',
     'food calorie lookup',
     'calorie counter',
+    'food calorie counter',
     'macro calculator',
     'nutrition facts',
     'usda food data',

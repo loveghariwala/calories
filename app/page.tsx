@@ -208,7 +208,9 @@ export default async function Home() {
         {/* <MonetizationSection /> */}
 
         {/* Clinical Calorie & Body Fat Calculators */}
-        <NutritionCalculators />
+        <section id="calculators">
+          <NutritionCalculators />
+        </section>
 
         {/* Editorial FAQ */}
         <section id="faq" className="editorial-card rounded-3xl p-6 sm:p-10 space-y-8">

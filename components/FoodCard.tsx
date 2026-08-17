@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { FoodItem, MealType } from '@/types/food';
 import { addMealEntry } from '@/lib/storage';
 import { Food3DAsset } from './Food3DAsset';
-import { Plus, Check, Scale, ArrowUpRight } from 'lucide-react';
+import { Plus, Check, Scale, ArrowUpRight, Sparkles } from 'lucide-react';
+import { InteractiveTilt } from './InteractiveTilt';
 
 interface FoodCardProps {
   food: FoodItem;
@@ -62,7 +63,8 @@ export const FoodCard: React.FC<FoodCardProps> = ({
   };
 
   return (
-    <div className="editorial-card rounded-3xl p-4 sm:p-5 flex flex-col justify-between relative group font-sans">
+    <InteractiveTilt maxTilt={7} scale={1.02} className="h-full">
+      <div className="editorial-card rounded-3xl p-4 sm:p-5 flex flex-col justify-between relative group font-sans h-full overflow-hidden">
       <div>
         {/* Specimen Header & Photography */}
         <div className="flex items-center gap-3.5 mb-3">
@@ -207,9 +209,10 @@ export const FoodCard: React.FC<FoodCardProps> = ({
                 </button>
               </div>
             )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </InteractiveTilt>
   );
 };

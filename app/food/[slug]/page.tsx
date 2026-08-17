@@ -8,6 +8,7 @@ import { FoodCard } from '@/components/FoodCard';
 import { MonetizationSection } from '@/components/MonetizationSlots';
 import { MealBuilderDock } from '@/components/MealBuilderDock';
 import { Food3DAsset } from '@/components/Food3DAsset';
+import { InteractiveTilt } from '@/components/InteractiveTilt';
 import {
   generateFoodJsonLd,
   generateBreadcrumbJsonLd,
@@ -150,59 +151,61 @@ export default async function FoodPage({ params }: FoodPageProps) {
         </nav>
 
         {/* Hero Header */}
-        <div className="editorial-card rounded-3xl p-6 sm:p-10 relative overflow-hidden">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-              <div className="relative shrink-0 w-24 h-24 sm:w-28 sm:h-28 rounded-3xl overflow-hidden bg-[#FAF8F5] border border-[#EAE3D9] shadow-sm">
-                {food.imageUrl ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={food.imageUrl}
-                    alt={food.name}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <span className="w-full h-full flex items-center justify-center text-5xl">
+        <InteractiveTilt maxTilt={4} scale={1.01} className="w-full">
+          <div className="editorial-card rounded-3xl p-6 sm:p-10 relative overflow-hidden">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
+                <div className="relative shrink-0 w-24 h-24 sm:w-28 sm:h-28 rounded-3xl overflow-hidden bg-[#FAF8F5] border border-[#EAE3D9] shadow-sm">
+                  {food.imageUrl ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={food.imageUrl}
+                      alt={food.name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <span className="w-full h-full flex items-center justify-center text-5xl">
+                      {food.emoji}
+                    </span>
+                  )}
+                  <span className="absolute bottom-1.5 right-1.5 text-base bg-white/80 backdrop-blur-xs rounded-full px-1.5 shadow-2xs">
                     {food.emoji}
                   </span>
-                )}
-                <span className="absolute bottom-1.5 right-1.5 text-base bg-white/80 backdrop-blur-xs rounded-full px-1.5 shadow-2xs">
-                  {food.emoji}
-                </span>
-              </div>
-              <div className="space-y-1.5">
-                <div className="flex items-center gap-2">
-                  <span className="px-3 py-1 rounded-full gold-seal text-[10px] font-sans font-bold uppercase tracking-wider">
-                    USDA #{food.usdaId || '8841'}
-                  </span>
-                  <span className="text-xs font-sans text-[#786C62]">{food.categoryName}</span>
                 </div>
-                <h1 className="text-2xl sm:text-4xl lg:text-5xl font-serif font-bold text-[#181513] tracking-tight">
-                  {food.name}
-                </h1>
-                <p className="text-xs sm:text-sm text-[#786C62] max-w-2xl leading-relaxed">
-                  {food.description}
-                </p>
+                <div className="space-y-1.5">
+                  <div className="flex items-center gap-2">
+                    <span className="px-3 py-1 rounded-full gold-seal text-[10px] font-sans font-bold uppercase tracking-wider">
+                      USDA #{food.usdaId || '8841'}
+                    </span>
+                    <span className="text-xs font-sans text-[#786C62]">{food.categoryName}</span>
+                  </div>
+                  <h1 className="text-2xl sm:text-4xl lg:text-5xl font-serif font-bold text-[#181513] tracking-tight">
+                    {food.name}
+                  </h1>
+                  <p className="text-xs sm:text-sm text-[#786C62] max-w-2xl leading-relaxed">
+                    {food.description}
+                  </p>
+                </div>
               </div>
-            </div>
 
-            {/* Quick Macro Pills */}
-            <div className="grid grid-cols-3 gap-2 text-center p-3 rounded-2xl bg-[#FAF8F5] border border-[#EAE3D9] self-start md:self-auto min-w-[240px]">
-              <div>
-                <span className="text-[10px] font-bold text-[#3B5842] uppercase block">Protein</span>
-                <span className="text-lg font-serif font-bold text-[#181513]">{prot}g</span>
-              </div>
-              <div>
-                <span className="text-[10px] font-bold text-[#C9822B] uppercase block">Carbs</span>
-                <span className="text-lg font-serif font-bold text-[#181513]">{carbs}g</span>
-              </div>
-              <div>
-                <span className="text-[10px] font-bold text-[#C4552D] uppercase block">Fat</span>
-                <span className="text-lg font-serif font-bold text-[#181513]">{fat}g</span>
+              {/* Quick Macro Pills */}
+              <div className="grid grid-cols-3 gap-2 text-center p-3 rounded-2xl bg-[#FAF8F5] border border-[#EAE3D9] self-start md:self-auto min-w-[240px]">
+                <div>
+                  <span className="text-[10px] font-bold text-[#3B5842] uppercase block">Protein</span>
+                  <span className="text-lg font-serif font-bold text-[#181513]">{prot}g</span>
+                </div>
+                <div>
+                  <span className="text-[10px] font-bold text-[#C9822B] uppercase block">Carbs</span>
+                  <span className="text-lg font-serif font-bold text-[#181513]">{carbs}g</span>
+                </div>
+                <div>
+                  <span className="text-[10px] font-bold text-[#C4552D] uppercase block">Fat</span>
+                  <span className="text-lg font-serif font-bold text-[#181513]">{fat}g</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </InteractiveTilt>
 
         {/* Live Portion Laboratory */}
         <InteractiveNutritionStudio food={food} />

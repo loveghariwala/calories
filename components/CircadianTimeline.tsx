@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { loadTodayLog, getMealSummary } from '@/lib/storage';
 import { Sun, Sunset, Moon, Sunrise, Clock, Sparkles } from 'lucide-react';
+import { InteractiveTilt } from './InteractiveTilt';
 
 export const CircadianTimeline: React.FC = () => {
   const [summary, setSummary] = useState({
@@ -40,9 +41,10 @@ export const CircadianTimeline: React.FC = () => {
       cals: summary.breakfast,
       ideal: Math.round(targetCals * 0.25),
       icon: Sunrise,
-      color: 'text-[#D48B38]',
-      bgPill: 'bg-[#FBF4EA]',
-      borderPill: 'border-[#E8DFD4]',
+      color: 'text-[#C9822B]',
+      gradient: 'from-[#C9822B] to-[#E59E44]',
+      bgPill: 'bg-[#FBF4E8]',
+      borderPill: 'border-[#EAE3D9]',
     },
     {
       name: 'Midday Meal',
@@ -50,9 +52,10 @@ export const CircadianTimeline: React.FC = () => {
       cals: summary.lunch,
       ideal: Math.round(targetCals * 0.35),
       icon: Sun,
-      color: 'text-[#3D5A45]',
+      color: 'text-[#3B5842]',
+      gradient: 'from-[#3B5842] to-[#527A5C]',
       bgPill: 'bg-[#EBF2EC]',
-      borderPill: 'border-[#E8DFD4]',
+      borderPill: 'border-[#EAE3D9]',
     },
     {
       name: 'Evening Dinner',
@@ -60,9 +63,10 @@ export const CircadianTimeline: React.FC = () => {
       cals: summary.dinner,
       ideal: Math.round(targetCals * 0.30),
       icon: Sunset,
-      color: 'text-[#C85A32]',
-      bgPill: 'bg-[#F7EDE7]',
-      borderPill: 'border-[#E8DFD4]',
+      color: 'text-[#C4552D]',
+      gradient: 'from-[#C4552D] to-[#E06B42]',
+      bgPill: 'bg-[#F8EFEA]',
+      borderPill: 'border-[#EAE3D9]',
     },
     {
       name: 'Light Bites',
@@ -70,27 +74,28 @@ export const CircadianTimeline: React.FC = () => {
       cals: summary.snack,
       ideal: Math.round(targetCals * 0.10),
       icon: Moon,
-      color: 'text-[#7A6F66]',
-      bgPill: 'bg-[#F4EFEB]',
-      borderPill: 'border-[#E8DFD4]',
+      color: 'text-[#786C62]',
+      gradient: 'from-[#786C62] to-[#9E9084]',
+      bgPill: 'bg-[#FAF8F5]',
+      borderPill: 'border-[#EAE3D9]',
     },
   ];
 
   return (
-    <div className="editorial-card rounded-3xl p-6 sm:p-10 my-12 relative overflow-hidden">
+    <div className="editorial-card rounded-3xl p-6 sm:p-10 my-12 relative overflow-hidden font-sans">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
-          <span className="text-[11px] font-sans font-bold tracking-widest text-[#C85A32] uppercase block">
-            The Daily Routine
+          <span className="text-[11px] font-sans font-bold tracking-widest text-[#C4552D] uppercase block">
+            Circadian Chrono-Nutrition
           </span>
-          <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#1A1715] mt-0.5">
-            Circadian Energy & Meal Distribution
+          <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#181513] mt-0.5">
+            Daily Energy &amp; Meal Distribution
           </h3>
         </div>
         <div className="text-right">
-          <span className="text-xs font-sans text-[#7A6F66] uppercase block font-semibold">Today’s Calorie Ledger</span>
-          <span className="text-2xl font-serif font-bold text-[#1A1715]">
-            {summary.calories} <span className="text-xs font-sans font-normal text-[#C85A32]">/ {targetCals} kcal</span>
+          <span className="text-xs font-sans text-[#786C62] uppercase block font-semibold">Today’s Calorie Ledger</span>
+          <span className="text-2xl font-serif font-bold text-[#181513]">
+            {summary.calories} <span className="text-xs font-sans font-normal text-[#C4552D]">/ {targetCals} kcal</span>
           </span>
         </div>
       </div>
@@ -102,42 +107,41 @@ export const CircadianTimeline: React.FC = () => {
           const pct = Math.min(100, Math.round((phase.cals / (phase.ideal || 1)) * 100));
 
           return (
-            <div
-              key={phase.name}
-              className="p-5 rounded-2xl bg-[#FAF7F2] border border-[#E8DFD4] flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <div className={`p-2.5 rounded-xl ${phase.bgPill} border ${phase.borderPill}`}>
-                    <Icon className={`w-5 h-5 ${phase.color}`} />
+            <InteractiveTilt key={phase.name} maxTilt={6} scale={1.02} className="h-full">
+              <div className="p-5 rounded-2xl bg-[#FAF8F5] border border-[#EAE3D9] flex flex-col justify-between h-full group hover:border-[#C4552D] transition-colors shadow-2xs">
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className={`p-2.5 rounded-xl ${phase.bgPill} border ${phase.borderPill} shadow-2xs group-hover:scale-110 transition-transform`}>
+                      <Icon className={`w-5 h-5 ${phase.color}`} />
+                    </div>
+                    <span className="text-xs font-sans text-[#786C62]">
+                      Target: {phase.ideal} kcal
+                    </span>
                   </div>
-                  <span className="text-xs font-sans text-[#7A6F66]">
-                    Ideal: {phase.ideal} kcal
-                  </span>
+
+                  <h4 className="font-serif font-bold text-base text-[#181513] group-hover:text-[#C4552D] transition-colors">{phase.name}</h4>
+                  <span className="text-[11px] font-sans text-[#786C62] block mb-3">{phase.sub}</span>
+
+                  <div className="py-2 border-t border-[#EAE3D9] flex items-baseline justify-between">
+                    <span className="text-2xl font-serif font-bold text-[#181513]">
+                      {phase.cals}{' '}
+                      <span className="text-xs font-sans font-normal text-[#786C62]">kcal</span>
+                    </span>
+                    <span className={`text-xs font-sans font-bold ${phase.color}`}>
+                      {pct}%
+                    </span>
+                  </div>
                 </div>
 
-                <h4 className="font-serif font-bold text-base text-[#1A1715]">{phase.name}</h4>
-                <span className="text-[11px] font-sans text-[#7A6F66] block mb-3">{phase.sub}</span>
-
-                <div className="py-2 border-t border-[#E8DFD4] flex items-baseline justify-between">
-                  <span className="text-2xl font-serif font-bold text-[#1A1715]">
-                    {phase.cals}{' '}
-                    <span className="text-xs font-sans font-normal text-[#7A6F66]">kcal</span>
-                  </span>
-                  <span className={`text-xs font-sans font-bold ${phase.color}`}>
-                    {pct}%
-                  </span>
+                {/* Animated Gradient Progress Bar */}
+                <div className="w-full bg-[#EAE3D9] rounded-full h-2 mt-3 overflow-hidden p-0.5">
+                  <div
+                    className={`h-full rounded-full bg-linear-to-r ${phase.gradient} transition-all duration-700`}
+                    style={{ width: `${Math.min(100, pct)}%` }}
+                  />
                 </div>
               </div>
-
-              {/* Progress bar */}
-              <div className="w-full bg-[#E8DFD4] rounded-full h-1.5 mt-3 overflow-hidden">
-                <div
-                  className="h-full rounded-full bg-[#C85A32] transition-all duration-500"
-                  style={{ width: `${Math.min(100, pct)}%` }}
-                />
-              </div>
-            </div>
+            </InteractiveTilt>
           );
         })}
       </div>

@@ -6,7 +6,9 @@ import { NutritionLabel } from './NutritionLabel';
 import { MacroChart } from './MacroChart';
 import { ExerciseBurn } from './ExerciseBurn';
 import { addMealEntry } from '@/lib/storage';
-import { Plus, Check, Share2, Scale, Utensils, ArrowRight } from 'lucide-react';
+import { MacroOrbital3D } from './MacroOrbital3D';
+import { InteractiveTilt } from './InteractiveTilt';
+import { Plus, Check, Share2, Scale, Utensils, ArrowRight, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 
 interface InteractiveNutritionStudioProps {
@@ -182,33 +184,51 @@ export const InteractiveNutritionStudio: React.FC<InteractiveNutritionStudioProp
           </div>
         </div>
 
-        {/* Live Nutrient Summary Bar */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-5 rounded-2xl bg-[#FAF8F5] border border-[#EAE3D9] mb-6">
-          <div>
-            <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#786C62] block">
-              Calibrated Energy
+        {/* Live 3D Macro Orbit & Nutrient Summary Bar */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center p-6 rounded-3xl bg-[#FAF8F5] border border-[#EAE3D9] mb-6 relative overflow-hidden">
+          {/* 3D Kinetic Orbital Sphere */}
+          <div className="lg:col-span-4 flex flex-col items-center justify-center relative">
+            <MacroOrbital3D
+              calories={activeCalories}
+              protein={activeProtein}
+              carbs={activeCarbs}
+              fat={activeFat}
+              fiber={activeFiber}
+              size={210}
+            />
+            <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#786C62] -mt-2 flex items-center gap-1">
+              <Sparkles className="w-3 h-3 text-[#C4552D]" /> 3D Metabolic Orbital
             </span>
-            <div className="text-2xl font-serif font-bold text-[#181513] mt-0.5">
-              {activeCalories} <span className="text-xs text-[#C4552D] font-normal font-sans">kcal</span>
+          </div>
+
+          {/* 4 Pillar Macronutrient Cards */}
+          <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="p-4 rounded-2xl bg-white border border-[#EAE3D9] shadow-2xs">
+              <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#786C62] block">
+                Calibrated Energy
+              </span>
+              <div className="text-2xl font-serif font-bold text-[#181513] mt-1">
+                {activeCalories} <span className="text-xs text-[#C4552D] font-normal font-sans">kcal</span>
+              </div>
             </div>
-          </div>
-          <div>
-            <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#3B5842] block">
-              Protein
-            </span>
-            <div className="text-2xl font-serif font-bold text-[#181513] mt-0.5">{activeProtein}g</div>
-          </div>
-          <div>
-            <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#C9822B] block">
-              Carbohydrates
-            </span>
-            <div className="text-2xl font-serif font-bold text-[#181513] mt-0.5">{activeCarbs}g</div>
-          </div>
-          <div>
-            <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#C4552D] block">
-              Dietary Lipids
-            </span>
-            <div className="text-2xl font-serif font-bold text-[#181513] mt-0.5">{activeFat}g</div>
+            <div className="p-4 rounded-2xl bg-white border border-[#EAE3D9] shadow-2xs">
+              <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#3B5842] block">
+                Protein
+              </span>
+              <div className="text-2xl font-serif font-bold text-[#181513] mt-1">{activeProtein}g</div>
+            </div>
+            <div className="p-4 rounded-2xl bg-white border border-[#EAE3D9] shadow-2xs">
+              <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#C9822B] block">
+                Carbohydrates
+              </span>
+              <div className="text-2xl font-serif font-bold text-[#181513] mt-1">{activeCarbs}g</div>
+            </div>
+            <div className="p-4 rounded-2xl bg-white border border-[#EAE3D9] shadow-2xs">
+              <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#C4552D] block">
+                Dietary Lipids
+              </span>
+              <div className="text-2xl font-serif font-bold text-[#181513] mt-1">{activeFat}g</div>
+            </div>
           </div>
         </div>
 
