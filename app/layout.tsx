@@ -4,6 +4,8 @@ import './globals.css';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { CookieConsentModal } from '@/components/CookieConsentModal';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { SITE_NAME, SITE_TAGLINE, SITE_URL, generateWebSiteJsonLd } from '@/lib/seo';
 
 const geistSans = Geist({
@@ -70,6 +72,9 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  verification: {
+    google: 'hyZqyROtTl3aFS0xh_xojc8lBUNIPqgtILJbIMflcUs',
+  },
 };
 
 export default function RootLayout({
@@ -95,6 +100,8 @@ export default function RootLayout({
         <div className="flex-1">{children}</div>
         <Footer />
         <CookieConsentModal />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
