@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { CATEGORIES, getFoodsByCategory, getCategoryBySlug } from '@/data/foodDatabase';
+import { searchLiveUSDA } from '@/lib/usdaApi';
 import { FoodCard } from '@/components/FoodCard';
 import { MonetizationSection } from '@/components/MonetizationSlots';
 import { MealBuilderDock } from '@/components/MealBuilderDock';

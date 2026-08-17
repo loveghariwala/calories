@@ -1,78 +1,51 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAllFoods } from '@/data/foodDatabase';
-import { searchLiveUSDA } from '@/lib/usdaApi';
-import Fuse from 'fuse.js';
+import { searchUSDA } from '@/lib/usdaApi';
+import { registerDynamicFood } from '@/data/foodDatabase';
 
 export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url);
-  const query = searchParams.get('q') || '';
-  const category = searchParams.get('category');
-  const tag = searchParams.get('tag');
-  const limit = parseInt(searchParams.get('limit') || '20', 10);
-  const includeLive = searchParams.get('live') !== 'false';
+  try {
+    const { searchParams } = new URL(request.url);
+    const query = searchParams.get('q') || searchParams.get('query') || '*';
+    const category = searchParams.get('category');
+    const dataType = searchParams.get('dataType') || undefined;
+    const page = Math.max(1, parseInt(searchParams.get('page') || searchParams.get('pageNumber') || '1', 10));
+    const limit = Math.min(100, Math.max(1, parseInt(searchParams.get('limit') || searchParams.get('pageSize') || '20', 10)));
+    const sortBy = searchParams.get('sortBy') as any;
+    const sortOrder = (searchParams.get('sortOrder') === 'desc' ? 'desc' : 'asc') as 'asc' | 'desc';
 
-  const localFoods = getAllFoods();
-  let localResults = localFoods;
+    const searchTerm = [query !== '*' ? query.trim() : '', category ? category.replace(/-/g, ' ') : ''].filter(Boolean).join(' ') || '*';
 
-  if (category) {
-    localResults = localResults.filter((f) => f.category === category);
-  }
-
-  if (tag) {
-    localResults = localResults.filter((f) => f.tags.includes(tag));
-  }
-
-  if (query.trim()) {
-    const fuse = new Fuse(localFoods, {
-      keys: [
-        { name: 'name', weight: 0.5 },
-        { name: 'tags', weight: 0.2 },
-        { name: 'categoryName', weight: 0.15 },
-        { name: 'brand', weight: 0.15 },
-      ],
-      threshold: 0.35,
-      ignoreLocation: true,
+    const result = await searchUSDA({
+      query: searchTerm,
+      pageSize: limit,
+      pageNumber: page,
+      dataType,
+      sortBy,
+      sortOrder,
     });
-    const fuseResults = fuse.search(query.trim());
-    localResults = fuseResults.map((res) => res.item);
 
-    if (category) {
-      localResults = localResults.filter((f) => f.category === category);
-    }
-    if (tag) {
-      localResults = localResults.filter((f) => f.tags.includes(tag));
-    }
+    result.foods.forEach(registerDynamicFood);
+
+    return NextResponse.json({
+      success: true,
+      source: 'USDA FoodData Central API',
+      query: searchTerm,
+      category: category || null,
+      totalHits: result.totalHits,
+      currentPage: result.currentPage,
+      totalPages: result.totalPages,
+      pageSize: limit,
+      results: result.foods,
+    });
+  } catch (error) {
+    console.error('Error in GET /api/foods/search:', error);
+    return NextResponse.json(
+      {
+        success: false,
+        error: 'Failed to search USDA FoodData Central',
+        message: error instanceof Error ? error.message : 'Unknown server error',
+      },
+      { status: 500 }
+    );
   }
-
-  // Fetch live USDA results dynamically
-  let liveUSDAResults: typeof localFoods = [];
-  if (includeLive) {
-    try {
-      const searchTerm = query.trim() || (category ? category.replace(/-/g, ' ') : 'chicken salmon avocado eggs ribeye oats blueberries');
-      liveUSDAResults = await searchLiveUSDA(searchTerm, limit);
-    } catch (e) {
-      console.warn('Live USDA API query skipped or timed out:', e);
-    }
-  }
-
-  // Merge and deduplicate
-  const existingIds = new Set(localResults.map((r) => r.id));
-  const combined = [...localResults];
-
-  for (const item of liveUSDAResults) {
-    if (!existingIds.has(item.id) && !existingIds.has(item.slug)) {
-      combined.push(item);
-      existingIds.add(item.id);
-    }
-  }
-
-  const results = combined.slice(0, limit);
-
-  return NextResponse.json({
-    results,
-    total: results.length,
-    query,
-    category,
-    tag,
-  });
 }

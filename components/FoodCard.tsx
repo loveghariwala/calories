@@ -62,24 +62,38 @@ export const FoodCard: React.FC<FoodCardProps> = ({
   };
 
   return (
-    <div className="editorial-card rounded-3xl p-5 flex flex-col justify-between relative group font-sans">
+    <div className="editorial-card rounded-3xl p-4 sm:p-5 flex flex-col justify-between relative group font-sans">
       <div>
-        {/* Specimen Header */}
-        <div className="flex items-start justify-between gap-3 mb-3">
-          <div className="flex items-center gap-3">
-            <span className="text-3xl p-2.5 rounded-2xl bg-[#FAF8F5] border border-[#EAE3D9] shadow-2xs">
+        {/* Specimen Header & Photography */}
+        <div className="flex items-center gap-3.5 mb-3">
+          <Link href={`/food/${food.slug}`} className="relative shrink-0 w-14 h-14 rounded-2xl overflow-hidden bg-[#FAF8F5] border border-[#EAE3D9] shadow-2xs group-hover:scale-105 transition-transform duration-300">
+            {food.imageUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={food.imageUrl}
+                alt={food.name}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            ) : (
+              <span className="w-full h-full flex items-center justify-center text-2xl">
+                {food.emoji}
+              </span>
+            )}
+            <span className="absolute bottom-1 right-1 text-xs bg-white/80 backdrop-blur-xs rounded-full px-1 shadow-2xs">
               {food.emoji}
             </span>
-            <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#786C62] block">
-                {food.categoryName}
-              </span>
-              <Link href={`/food/${food.slug}`} className="block">
-                <h3 className="font-serif font-bold text-base text-[#181513] group-hover:text-[#C4552D] transition-colors line-clamp-1">
-                  {food.name}
-                </h3>
-              </Link>
-            </div>
+          </Link>
+
+          <div className="flex-1 min-w-0">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-[#786C62] block truncate">
+              {food.categoryName}
+            </span>
+            <Link href={`/food/${food.slug}`} className="block">
+              <h3 className="font-serif font-bold text-base text-[#181513] group-hover:text-[#C4552D] transition-colors line-clamp-1">
+                {food.name}
+              </h3>
+            </Link>
           </div>
         </div>
 

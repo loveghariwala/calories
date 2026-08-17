@@ -1,7 +1,7 @@
-import { FoodItem, CategoryMeta } from '@/types/food';
+import { FoodItem, CategoryMeta, FoodCategory } from '@/types/food';
 import { searchLiveUSDA, getLiveUSDAFoodById } from '@/lib/usdaApi';
 
-export const CATEGORY_SLUGS = [
+export const CATEGORY_SLUGS: FoodCategory[] = [
   'meats-poultry',
   'seafood',
   'dairy-eggs',
@@ -35,12 +35,14 @@ export function getCategoryMeta(slug: string): CategoryMeta {
     .replace('And', '&');
 
   return {
-    slug,
+    slug: slug as FoodCategory,
     name,
     emoji: EMOJI_MAP[slug] || '🥗',
     description: `Clinical calories, protein density, and macronutrient breakdowns for ${name} from USDA FoodData Central.`,
     seoTitle: `${name} Calories, Protein & Nutrition Guide | CaloriePulse`,
     seoDescription: `Comprehensive calorie counts, macros, and nutrient distributions for ${name}.`,
+    bgGradient: 'from-emerald-500/10 to-teal-500/10',
+    accentColor: '#10b981',
     popularTags: ['high-protein', 'low-calorie', 'healthy-fats', 'nutrient-dense'],
   };
 }

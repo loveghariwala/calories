@@ -52,6 +52,7 @@ export interface FoodItem {
   name: string; // Display name e.g. "Grilled Chicken Breast"
   brand?: string; // Optional brand e.g. "USDA Standard", "Chipotle", "Starbucks"
   emoji: string; // Visual icon/emoji e.g. "🍗", "🥑"
+  imageUrl?: string; // High-resolution curated culinary photography URL
   category: FoodCategory;
   categoryName: string; // e.g. "Meats & Poultry"
   description: string; // SEO description

@@ -152,10 +152,24 @@ export default async function FoodPage({ params }: FoodPageProps) {
         {/* Hero Header */}
         <div className="editorial-card rounded-3xl p-6 sm:p-10 relative overflow-hidden">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div className="flex items-center gap-5">
-              <span className="text-5xl sm:text-6xl p-4 sm:p-5 rounded-3xl bg-[#FAF8F5] border border-[#EAE3D9] shadow-xs">
-                {food.emoji}
-              </span>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
+              <div className="relative shrink-0 w-24 h-24 sm:w-28 sm:h-28 rounded-3xl overflow-hidden bg-[#FAF8F5] border border-[#EAE3D9] shadow-sm">
+                {food.imageUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={food.imageUrl}
+                    alt={food.name}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <span className="w-full h-full flex items-center justify-center text-5xl">
+                    {food.emoji}
+                  </span>
+                )}
+                <span className="absolute bottom-1.5 right-1.5 text-base bg-white/80 backdrop-blur-xs rounded-full px-1.5 shadow-2xs">
+                  {food.emoji}
+                </span>
+              </div>
               <div className="space-y-1.5">
                 <div className="flex items-center gap-2">
                   <span className="px-3 py-1 rounded-full gold-seal text-[10px] font-sans font-bold uppercase tracking-wider">

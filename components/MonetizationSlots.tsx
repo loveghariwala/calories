@@ -2,6 +2,8 @@ import React from 'react';
 import { Sparkles, ShoppingBag, ExternalLink, ShieldCheck } from 'lucide-react';
 
 export const MonetizationSection: React.FC = () => {
+  return null;
+  /*
   const products = [
     {
       id: 'scale-01',
@@ -90,4 +92,5 @@ export const MonetizationSection: React.FC = () => {
       </div>
     </section>
   );
+  */
 };

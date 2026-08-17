@@ -1,4 +1,4 @@
-import { getAllFoods, getTopComparisonPairs, registerDynamicFood } from '@/data/foodDatabase';
+import { getAllFoods, registerDynamicFood } from '@/data/foodDatabase';
 import { searchLiveUSDA } from '@/lib/usdaApi';
 import { HeroSearch } from '@/components/HeroSearch';
 import { FoodCard } from '@/components/FoodCard';
@@ -24,8 +24,6 @@ export default async function Home() {
 
   // Register in live dynamic cache
   [...highProteinFoods, ...breakfastStaples, ...lowCalorieSnacks].forEach(registerDynamicFood);
-
-  const topPairs = getTopComparisonPairs().slice(0, 4);
 
   const tickerItems = [
     { label: 'Wild Alaskan Salmon', detail: '22.1g Complete Protein', emoji: '🐟' },
@@ -169,58 +167,7 @@ export default async function Home() {
           <CircadianTimeline />
         </section>
 
-        {/* ============================================================ */}
-        {/* 5. FOOD FACE-OFF SHOWDOWN: [APPLIED] 4 DVD Bouncing Shapes */}
-        {/* ============================================================ */}
-        <section className="editorial-card rounded-3xl p-6 sm:p-10 space-y-8 relative overflow-hidden">
-          <DVDBouncing3DCanvas
-            items={[
-              { name: 'Fresh Banana', type: 'banana', size: 65, glowColor: 'rgba(240, 205, 55, 0.25)', initialVx: 1.2, initialVy: 0.9 },
-              { name: 'Sourdough Bread', type: 'bread', size: 64, glowColor: 'rgba(205, 145, 85, 0.25)', initialVx: -1.1, initialVy: 1.1 },
-              { name: 'Dark Chocolate', type: 'chocolate', size: 60, glowColor: 'rgba(125, 75, 45, 0.25)', initialVx: 1.0, initialVy: -1.0 },
-              { name: 'Ramen Bowl', type: 'ramen', size: 68, glowColor: 'rgba(225, 120, 60, 0.25)', initialVx: -1.2, initialVy: -0.9 },
-            ]}
-          />
 
-          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#EAE3D9] pb-6">
-            <div>
-              <span className="text-[11px] font-sans font-bold tracking-widest uppercase text-[#C4552D]">
-                Head-to-Head Arena
-              </span>
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#181513] mt-0.5">
-                Compare Any Two Foods Side-by-Side
-              </h2>
-            </div>
-            <Link
-              href="/compare"
-              className="px-5 py-2.5 rounded-full bg-[#C4552D] hover:bg-[#A03E1B] text-white text-xs font-bold font-sans flex items-center gap-1.5 transition-colors shadow-2xs self-start md:self-auto"
-            >
-              <span>Launch Comparison Studio</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-
-          <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {topPairs.map((pair) => (
-              <Link
-                key={pair.slug}
-                href={`/compare/${pair.slug}`}
-                className="group p-5 rounded-2xl bg-[#FAF8F5] border border-[#EAE3D9] hover:border-[#C4552D] transition-all hover:-translate-y-1 shadow-2xs flex flex-col justify-between"
-              >
-                <div className="flex items-center justify-center gap-3 py-4">
-                  <span className="text-3xl p-2 bg-white rounded-xl shadow-2xs">{pair.food1.emoji}</span>
-                  <span className="text-xs font-bold text-[#786C62] font-mono">VS</span>
-                  <span className="text-3xl p-2 bg-white rounded-xl shadow-2xs">{pair.food2.emoji}</span>
-                </div>
-                <div className="text-center pt-2 border-t border-[#EAE3D9]">
-                  <h3 className="font-serif font-bold text-xs sm:text-sm text-[#181513] group-hover:text-[#C4552D] transition-colors truncate">
-                    {pair.food1.name.split('(')[0]} vs {pair.food2.name.split('(')[0]}
-                  </h3>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
 
         {/* ============================================================ */}
         {/* 6. BREAKFAST STAPLES: [SKIPPED - No 3D background shapes] */}
@@ -258,7 +205,7 @@ export default async function Home() {
         </section>
 
         {/* Curated Kitchen Essentials */}
-        <MonetizationSection />
+        {/* <MonetizationSection /> */}
 
         {/* Clinical Calorie & Body Fat Calculators */}
         <NutritionCalculators />
