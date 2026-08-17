@@ -10,8 +10,9 @@ import { CircadianTimeline } from '@/components/CircadianTimeline';
 import { MealBuilderDock } from '@/components/MealBuilderDock';
 import { NutritionCalculators } from '@/components/NutritionCalculators';
 import { DVDBouncing3DCanvas } from '@/components/DVDBouncing3DCanvas';
+import { InteractiveTilt } from '@/components/InteractiveTilt';
 import { generateFaqJsonLd } from '@/lib/seo';
-import { ArrowUpRight, Award } from 'lucide-react';
+import { ArrowUpRight, Award, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 
 export default async function Home() {
@@ -111,6 +112,36 @@ export default async function Home() {
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* Luxury Culinary Studio Title Banner */}
+          <div className="relative z-10 w-full max-w-5xl mx-auto">
+            <InteractiveTilt maxTilt={3} scale={1.01} className="w-full">
+              <div className="relative rounded-3xl overflow-hidden border border-[#EAE3D9] shadow-md group">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/hero-banner.jpg"
+                  alt="CaloriePulse Nutrition Studio Banner"
+                  className="w-full h-48 sm:h-64 lg:h-72 object-cover group-hover:scale-103 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#181513]/70 via-transparent to-transparent flex items-end p-6 sm:p-8">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between w-full gap-3 text-white">
+                    <div>
+                      <div className="flex items-center gap-2 text-xs font-sans text-[#FAF8F5]/90 font-medium">
+                        <Sparkles className="w-3.5 h-3.5 text-[#E59E44]" />
+                        <span>Interactive Whole Food Spectrum &amp; Atelier</span>
+                      </div>
+                      <h3 className="font-serif text-xl sm:text-2xl font-bold tracking-tight text-white mt-0.5">
+                        Calibrate Calories with Laboratory Precision
+                      </h3>
+                    </div>
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-xs font-sans font-semibold text-white shrink-0 self-start sm:self-auto shadow-sm">
+                      <span>USDA FoodData Central</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </InteractiveTilt>
           </div>
 
           {/* The Luxury Nutrition Atelier (Full 6xl Width) */}

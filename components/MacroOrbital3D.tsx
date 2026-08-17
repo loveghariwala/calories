@@ -165,6 +165,23 @@ export const MacroOrbital3D: React.FC<MacroOrbital3DProps> = ({
         '#E06B42'
       );
 
+      // Ambient 3D Star Particles
+      for (let i = 0; i < 8; i++) {
+        const pAngle = angle * (0.4 + i * 0.15) + (i * Math.PI) / 4;
+        const pDist = size * 0.2 + (i % 3) * 14 + Math.sin(angle * 2 + i) * 6;
+        const px = centerX + Math.cos(pAngle) * pDist + mouseRef.current.x * 6;
+        const py = centerY + Math.sin(pAngle) * (pDist * 0.5) + mouseRef.current.y * 6;
+        const pAlpha = 0.3 + Math.sin(angle * 4 + i) * 0.25;
+
+        ctx.beginPath();
+        ctx.arc(px, py, 1.5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(196, 85, 45, ${Math.max(0.1, pAlpha)})`;
+        ctx.shadowColor = '#C9822B';
+        ctx.shadowBlur = 4;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+
       // Center Metabolic Nexus Sphere
       ctx.save();
       ctx.translate(centerX + mouseRef.current.x * 8, centerY + mouseRef.current.y * 8);

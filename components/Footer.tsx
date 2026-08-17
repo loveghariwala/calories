@@ -9,9 +9,14 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
           {/* Brand Column */}
           <div className="space-y-4 lg:col-span-2">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#C4552D] to-[#9E3915] text-white flex items-center justify-center font-serif text-lg font-bold">
-                C
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="w-8 h-8 rounded-xl overflow-hidden bg-white border border-[#EAE3D9] shadow-2xs group-hover:scale-105 transition-transform p-0.5">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/logo.jpg"
+                  alt="CaloriePulse Logo"
+                  className="w-full h-full object-cover rounded-lg"
+                />
               </div>
               <span className="font-serif text-xl font-bold text-[#181513]">
                 Calorie<span className="text-[#C4552D] italic font-normal">Pulse</span>

@@ -86,8 +86,13 @@ export const Navbar: React.FC = () => {
           {/* Masthead Brand */}
           <div className="flex items-center gap-4 xl:gap-6 shrink-0">
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#C4552D] to-[#9E3915] text-white flex items-center justify-center font-serif text-xl font-bold shadow-md shadow-[#C4552D]/20 group-hover:scale-105 transition-transform shrink-0">
-                <span>C</span>
+              <div className="w-10 h-10 rounded-2xl overflow-hidden bg-white border border-[#EAE3D9] shadow-xs group-hover:scale-105 transition-transform shrink-0 p-0.5">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/logo.jpg"
+                  alt="CaloriePulse Logo"
+                  className="w-full h-full object-cover rounded-xl"
+                />
               </div>
               <div className="shrink-0">
                 <div className="font-serif text-xl sm:text-2xl font-bold tracking-tight text-[#181513] flex items-center gap-1 leading-none">

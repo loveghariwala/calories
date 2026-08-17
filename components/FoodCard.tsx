@@ -68,29 +68,31 @@ export const FoodCard: React.FC<FoodCardProps> = ({
       <div>
         {/* Specimen Header & Photography */}
         <div className="flex items-center gap-3.5 mb-3">
-          <Link href={`/food/${food.slug}`} className="relative shrink-0 w-14 h-14 rounded-2xl overflow-hidden bg-[#FAF8F5] border border-[#EAE3D9] shadow-2xs group-hover:scale-105 transition-transform duration-300">
+          <Link href={`/food/${food.slug}`} className="relative shrink-0 w-14 h-14 rounded-2xl overflow-hidden bg-[#FAF8F5] border border-[#EAE3D9] shadow-2xs group-hover:shadow-md group-hover:border-[#C4552D]/40 group-hover:scale-108 transition-all duration-300">
             {food.imageUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={food.imageUrl}
                 alt={food.name}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 loading="lazy"
               />
             ) : (
-              <span className="w-full h-full flex items-center justify-center text-2xl">
+              <span className="w-full h-full flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
                 {food.emoji}
               </span>
             )}
-            <span className="absolute bottom-1 right-1 text-xs bg-white/80 backdrop-blur-xs rounded-full px-1 shadow-2xs">
+            <span className="absolute bottom-1 right-1 text-xs bg-white/90 backdrop-blur-xs rounded-full px-1 shadow-2xs group-hover:scale-110 transition-transform">
               {food.emoji}
             </span>
           </Link>
 
           <div className="flex-1 min-w-0">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[#786C62] block truncate">
-              {food.categoryName}
-            </span>
+            <div className="flex items-center gap-1.5 mb-0.5">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#786C62] block truncate">
+                {food.categoryName}
+              </span>
+            </div>
             <Link href={`/food/${food.slug}`} className="block">
               <h3 className="font-serif font-bold text-base text-[#181513] group-hover:text-[#C4552D] transition-colors line-clamp-1">
                 {food.name}
@@ -100,12 +102,12 @@ export const FoodCard: React.FC<FoodCardProps> = ({
         </div>
 
         {/* Energy Readout */}
-        <div className="flex items-baseline justify-between py-2.5 border-y border-[#EAE3D9] my-2">
+        <div className="flex items-baseline justify-between py-2.5 border-y border-[#EAE3D9] my-2 group-hover:border-[#C4552D]/30 transition-colors">
           <div className="text-xs text-[#786C62]">
             {defaultServing ? defaultServing.label : '100g'}
           </div>
           <div className="text-right flex items-baseline gap-1">
-            <span className="text-2xl font-serif font-bold text-[#181513]">
+            <span className="text-2xl font-serif font-bold text-[#181513] group-hover:text-[#C4552D] transition-colors">
               {cals}
             </span>
             <span className="text-xs text-[#C4552D] font-medium">kcal</span>
@@ -113,18 +115,18 @@ export const FoodCard: React.FC<FoodCardProps> = ({
         </div>
 
         {/* Macro Spectrum Display */}
-        <div className="my-2.5 space-y-1">
+        <div className="my-2.5 space-y-1.5">
           <div className="flex justify-between items-center text-xs">
             <span className="text-[#3B5842] font-semibold">{protein}g P</span>
             <span className="text-[#C9822B] font-semibold">{carbs}g C</span>
             <span className="text-[#C4552D] font-semibold">{fat}g F</span>
           </div>
 
-          {/* Multi-color Line */}
-          <div className="w-full bg-[#EAE3D9] h-1.5 rounded-full overflow-hidden flex gap-0.5">
-            <div style={{ width: `${pPct}%` }} className="bg-[#3B5842] h-full rounded-full" />
-            <div style={{ width: `${cPct}%` }} className="bg-[#C9822B] h-full rounded-full" />
-            <div style={{ width: `${fPct}%` }} className="bg-[#C4552D] h-full rounded-full" />
+          {/* Multi-color Line with Glowing Gradient */}
+          <div className="w-full bg-[#EAE3D9] h-2 rounded-full overflow-hidden flex gap-0.5 p-0.5">
+            <div style={{ width: `${pPct}%` }} className="bg-[#3B5842] h-full rounded-full transition-all duration-500 shadow-xs" />
+            <div style={{ width: `${cPct}%` }} className="bg-[#C9822B] h-full rounded-full transition-all duration-500 shadow-xs" />
+            <div style={{ width: `${fPct}%` }} className="bg-[#C4552D] h-full rounded-full transition-all duration-500 shadow-xs" />
           </div>
         </div>
       </div>
