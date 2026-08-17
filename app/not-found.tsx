@@ -14,7 +14,7 @@ export default function NotFound() {
 
         <div className="space-y-2">
           <span className="text-[11px] font-sans font-bold uppercase tracking-widest text-[#C4552D]">
-            Error 404 • Specimen Not Found
+            Error 404 • Not Found
           </span>
           <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#181513]">
             Page Out of Range
@@ -23,6 +23,7 @@ export default function NotFound() {
             The whole food specimen or page you are looking for has been moved or does not exist in our USDA index.
           </p>
         </div>
+
 
         <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
           <Link
