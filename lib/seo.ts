@@ -1,6 +1,7 @@
 import { FoodItem, CategoryMeta } from '@/types/food';
 
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://caloriepulse.com';
+export const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || 'https://caloriepulse.vercel.app';
 export const SITE_NAME = 'CaloriePulse';
 export const SITE_TAGLINE = 'Instant Food Calorie Lookup, USDA Nutrition Facts & Daily Macro Tracker';
 

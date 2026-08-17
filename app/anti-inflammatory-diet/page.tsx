@@ -3,7 +3,12 @@ import Link from 'next/link';
 import { getAllFoods } from '@/data/foodDatabase';
 import { FoodCard } from '@/components/FoodCard';
 import { MealBuilderDock } from '@/components/MealBuilderDock';
-import { generateFaqJsonLd, getCanonicalUrl } from '@/lib/seo';
+import {
+  generateFaqJsonLd,
+  generateBreadcrumbJsonLd,
+  getCanonicalUrl,
+  SITE_URL,
+} from '@/lib/seo';
 import { Award, ChevronRight, ShieldCheck, Sparkles, Heart, Zap, Flame, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -80,7 +85,7 @@ export default function AntiInflammatoryDietPage() {
     publisher: {
       '@type': 'Organization',
       name: 'CaloriePulse',
-      url: 'https://caloriepulse.com',
+      url: SITE_URL,
     },
   };
 
