@@ -231,8 +231,8 @@ export default async function FoodPage({ params }: FoodPageProps) {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              {relatedFoods.map((item) => (
-                <FoodCard key={item.id} food={item} />
+              {relatedFoods.map((item, idx) => (
+                <FoodCard key={`${item.id}-${idx}`} food={item} />
               ))}
             </div>
           </section>

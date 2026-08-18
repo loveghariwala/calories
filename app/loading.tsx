@@ -1,38 +1,44 @@
 import React from 'react';
+import { Flame, Sparkles } from 'lucide-react';
 
 export default function Loading() {
   return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12 animate-pulse font-sans">
-      {/* Hero Skeleton */}
-      <div className="max-w-4xl mx-auto space-y-6 text-center">
-        <div className="h-6 w-48 bg-[#EAE3D9] rounded-full mx-auto" />
-        <div className="h-14 w-3/4 bg-[#EAE3D9] rounded-2xl mx-auto" />
-        <div className="h-5 w-1/2 bg-[#EAE3D9] rounded-xl mx-auto" />
-        <div className="h-12 w-full max-w-xl bg-[#EAE3D9] rounded-full mx-auto" />
-      </div>
+    <div className="fixed inset-0 z-99999 flex flex-col items-center justify-center bg-[#FAF8F5]/80 backdrop-blur-sm font-sans select-none">
+      {/* 1. Center Animated Laboratory Badge */}
+      <div className="flex flex-col items-center gap-4 animate-in fade-in duration-200">
+        <div className="relative flex items-center justify-center">
+          {/* Outer Pulsing Aura */}
+          <div className="absolute w-28 h-28 rounded-full bg-gradient-to-tr from-[#C4552D]/20 via-[#C9822B]/20 to-[#3B5842]/20 animate-ping opacity-60" />
 
-      {/* Grid Skeleton */}
-      <div className="editorial-card rounded-3xl p-8 space-y-8">
-        <div className="flex justify-between items-center">
-          <div className="h-8 w-64 bg-[#EAE3D9] rounded-xl" />
-          <div className="h-8 w-40 bg-[#EAE3D9] rounded-full" />
+          {/* Rotating Dual Orbit Rings */}
+          <div className="w-20 h-20 rounded-full border-2 border-[#C4552D]/30 border-t-[#C4552D] animate-spin" />
+          <div
+            className="absolute w-16 h-16 rounded-full border-2 border-[#3B5842]/30 border-b-[#3B5842] animate-spin"
+            style={{ animationDirection: 'reverse', animationDuration: '1.2s' }}
+          />
+
+          {/* Inner Glowing Pill */}
+          <div className="absolute w-11 h-11 rounded-2xl bg-white shadow-xl border border-[#EAE3D9] flex items-center justify-center">
+            <Flame className="w-6 h-6 text-[#C4552D] animate-bounce" />
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[1, 2, 3].map((i) => (
-            <div key={i} className="h-44 bg-[#FAF8F5] border border-[#EAE3D9] rounded-2xl p-6 space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-[#EAE3D9]" />
-                <div className="space-y-2 flex-1">
-                  <div className="h-4 w-3/4 bg-[#EAE3D9] rounded" />
-                  <div className="h-3 w-1/2 bg-[#EAE3D9] rounded" />
-                </div>
-              </div>
-              <div className="h-10 bg-[#EAE3D9] rounded-xl" />
-            </div>
-          ))}
+        {/* Loading Description */}
+        <div className="text-center space-y-1.5 bg-white/95 backdrop-blur-md px-6 py-3 rounded-2xl border border-[#EAE3D9] shadow-xl">
+          <div className="flex items-center justify-center gap-1.5 text-sm font-serif font-bold text-[#181513]">
+            <span>CaloriePulse</span>
+            <Sparkles className="w-3.5 h-3.5 text-[#C9822B] animate-pulse" />
+          </div>
+          <div className="text-xs font-sans font-semibold text-[#786C62] uppercase tracking-widest flex items-center justify-center gap-1">
+            <span>Retrieving USDA Specimen</span>
+            <span className="inline-flex">
+              <span className="animate-bounce" style={{ animationDelay: '0ms' }}>.</span>
+              <span className="animate-bounce" style={{ animationDelay: '150ms' }}>.</span>
+              <span className="animate-bounce" style={{ animationDelay: '300ms' }}>.</span>
+            </span>
+          </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

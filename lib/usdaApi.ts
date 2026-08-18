@@ -126,8 +126,9 @@ function assignEmoji(name: string, category: string): string {
   if (lower.includes('milk') || lower.includes('yogurt') || lower.includes('dairy')) return '🥛';
   if (lower.includes('apple')) return '🍎';
   if (lower.includes('banana')) return '🍌';
-  if (lower.includes('berry') || lower.includes('blueberry') || lower.includes('strawberry')) return '🫐';
-  if (lower.includes('orange') || lower.includes('citrus')) return '🍊';
+  if (lower.includes('strawberry')) return '🍓';
+  if (lower.includes('blueberry') || lower.includes('blackberry') || lower.includes('berry')) return '🫐';
+  if (lower.includes('orange') || lower.includes('citrus') || lower.includes('lemon')) return '🍊';
   if (lower.includes('avocado')) return '🥑';
   if (lower.includes('broccoli')) return '🥦';
   if (lower.includes('salad') || lower.includes('spinach') || lower.includes('kale') || lower.includes('lettuce')) return '🥗';

@@ -62,7 +62,15 @@ export function registerDynamicFood(food: FoodItem) {
 }
 
 export function getAllFoods(): FoodItem[] {
-  return Array.from(dynamicFoodCache.values());
+  const seen = new Set<string>();
+  const unique: FoodItem[] = [];
+  for (const food of dynamicFoodCache.values()) {
+    if (food && food.id && !seen.has(food.id)) {
+      seen.add(food.id);
+      unique.push(food);
+    }
+  }
+  return unique;
 }
 
 export function getFoodBySlug(slug: string): FoodItem | undefined {
@@ -75,19 +83,27 @@ export function getFoodsByCategory(categorySlug: string): FoodItem[] {
 
 export function getRelatedFoods(food: FoodItem, limit: number = 4): FoodItem[] {
   const relSlugs = food.relatedSlugs || [];
-  const bySlug = relSlugs
-    .map((s) => getFoodBySlug(s))
-    .filter((f): f is FoodItem => Boolean(f));
+  const seenIds = new Set<string>([food.id]);
+  const result: FoodItem[] = [];
 
-  if (bySlug.length >= limit) {
-    return bySlug.slice(0, limit);
+  for (const s of relSlugs) {
+    const f = getFoodBySlug(s);
+    if (f && !seenIds.has(f.id)) {
+      seenIds.add(f.id);
+      result.push(f);
+    }
   }
 
-  const sameCategory = getAllFoods().filter(
-    (f) => f.category === food.category && f.id !== food.id && !relSlugs.includes(f.slug)
-  );
+  const all = getAllFoods();
+  for (const f of all) {
+    if (f.category === food.category && !seenIds.has(f.id)) {
+      seenIds.add(f.id);
+      result.push(f);
+      if (result.length >= limit) break;
+    }
+  }
 
-  return [...bySlug, ...sameCategory].slice(0, limit);
+  return result.slice(0, limit);
 }
 
 export function getTopComparisonPairs(): { food1: FoodItem; food2: FoodItem; slug: string }[] {

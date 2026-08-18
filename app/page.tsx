@@ -62,21 +62,26 @@ export default async function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-24">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-24 relative overflow-hidden min-h-screen">
+        {/* Full-Page DVD Bouncing Canvas with 8 Distinct 3D Food Shapes */}
+        <DVDBouncing3DCanvas
+          items={[
+            { name: 'Avocado', type: 'avocado', size: 68, glowColor: 'rgba(117, 166, 50, 0.25)', initialVx: 1.1, initialVy: 0.8 },
+            { name: 'Ribeye Steak', type: 'steak', size: 70, glowColor: 'rgba(217, 75, 61, 0.25)', initialVx: -1.0, initialVy: 1.1 },
+            { name: 'Pancakes', type: 'pancake', size: 64, glowColor: 'rgba(227, 157, 68, 0.25)', initialVx: 1.0, initialVy: -0.9 },
+            { name: 'Strawberry', type: 'strawberry', size: 58, glowColor: 'rgba(214, 24, 24, 0.25)', initialVx: -1.2, initialVy: -0.8 },
+            { name: 'Cheddar Cheese', type: 'cheese', size: 66, glowColor: 'rgba(235, 175, 50, 0.25)', initialVx: 1.2, initialVy: 1.0 },
+            { name: 'Steamed Shrimp', type: 'shrimp', size: 62, glowColor: 'rgba(240, 95, 60, 0.25)', initialVx: -0.9, initialVy: 1.2 },
+            { name: 'Atlantic Salmon', type: 'salmon', size: 68, glowColor: 'rgba(245, 90, 56, 0.25)', initialVx: 0.9, initialVy: -1.1 },
+            { name: 'Whole Milk', type: 'milk', size: 64, glowColor: 'rgba(80, 140, 220, 0.25)', initialVx: -1.1, initialVy: -1.0 },
+          ]}
+        />
+
         {/* ============================================================ */}
-        {/* 1. HERO SECTION: [APPLIED] 4 DVD Bouncing Shapes */}
+        {/* 1. HERO SECTION */}
         {/* ============================================================ */}
         <section className="space-y-10 max-w-6xl mx-auto relative min-h-[500px]">
-          <DVDBouncing3DCanvas
-            items={[
-              { name: 'Avocado', type: 'avocado', size: 64, glowColor: 'rgba(117, 166, 50, 0.25)', initialVx: 1.2, initialVy: 0.9 },
-              { name: 'Ribeye Steak', type: 'steak', size: 68, glowColor: 'rgba(217, 75, 61, 0.25)', initialVx: -1.0, initialVy: 1.2 },
-              { name: 'Pancakes', type: 'pancake', size: 64, glowColor: 'rgba(227, 157, 68, 0.25)', initialVx: 1.1, initialVy: -1.1 },
-              { name: 'Strawberry', type: 'strawberry', size: 58, glowColor: 'rgba(214, 24, 24, 0.25)', initialVx: -1.3, initialVy: -0.9 },
-            ]}
-          />
-
-          <div className="relative z-10 space-y-6 text-center max-w-4xl mx-auto">
+          <div className="relative z-40 space-y-6 text-center max-w-4xl mx-auto">
             {/* Gold Seal Provenance */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full gold-seal text-xs font-sans font-semibold shadow-2xs">
               <Award className="w-3.5 h-3.5 text-[#C9822B]" />
@@ -151,7 +156,7 @@ export default async function Home() {
         </section>
 
         {/* ============================================================ */}
-        {/* 2. CATEGORIES SECTION: [SKIPPED - No 3D background shapes] */}
+        {/* 2. CATEGORIES SECTION */}
         {/* ============================================================ */}
         <section id="categories" className="space-y-6">
           <div className="flex items-center justify-between">
@@ -169,18 +174,9 @@ export default async function Home() {
         </section>
 
         {/* ============================================================ */}
-        {/* 3. HIGH-PROTEIN SECTION: [APPLIED] 4 DVD Bouncing Shapes */}
+        {/* 3. HIGH-PROTEIN SECTION */}
         {/* ============================================================ */}
-        <section className="space-y-6 relative min-h-[400px]">
-          <DVDBouncing3DCanvas
-            items={[
-              { name: 'Whole Milk', type: 'milk', size: 62, glowColor: 'rgba(80, 140, 220, 0.25)', initialVx: 1.1, initialVy: 0.8 },
-              { name: 'Cheddar Cheese', type: 'cheese', size: 66, glowColor: 'rgba(235, 175, 50, 0.25)', initialVx: -1.2, initialVy: 1.0 },
-              { name: 'Chicken Breast', type: 'chicken', size: 66, glowColor: 'rgba(215, 80, 50, 0.25)', initialVx: 1.0, initialVy: -1.1 },
-              { name: 'Steamed Shrimp', type: 'shrimp', size: 60, glowColor: 'rgba(240, 95, 60, 0.25)', initialVx: -0.9, initialVy: -1.2 },
-            ]}
-          />
-
+        <section className="space-y-6">
           <div className="relative z-10">
             <FoodGridWithFilters
               initialFoods={highProteinFoods}
@@ -192,16 +188,14 @@ export default async function Home() {
         </section>
 
         {/* ============================================================ */}
-        {/* 4. CIRCADIAN TIMING SECTION: [SKIPPED - No 3D background shapes] */}
+        {/* 4. CIRCADIAN TIMING SECTION */}
         {/* ============================================================ */}
         <section id="circadian">
           <CircadianTimeline />
         </section>
 
-
-
         {/* ============================================================ */}
-        {/* 6. BREAKFAST STAPLES: [SKIPPED - No 3D background shapes] */}
+        {/* 5. BREAKFAST STAPLES */}
         {/* ============================================================ */}
         <section className="space-y-6">
           <FoodGridWithFilters
@@ -213,18 +207,9 @@ export default async function Home() {
         </section>
 
         {/* ============================================================ */}
-        {/* 7. LOW-CALORIE SECTION: [APPLIED] 4 DVD Bouncing Shapes */}
+        {/* 6. LOW-CALORIE SECTION */}
         {/* ============================================================ */}
-        <section className="space-y-6 relative min-h-[400px]">
-          <DVDBouncing3DCanvas
-            items={[
-              { name: 'Brewed Coffee', type: 'coffee', size: 62, glowColor: 'rgba(165, 110, 65, 0.25)', initialVx: 1.2, initialVy: 0.9 },
-              { name: 'Wild Berries', type: 'berry', size: 58, glowColor: 'rgba(80, 110, 220, 0.25)', initialVx: -1.3, initialVy: 1.0 },
-              { name: 'Steamed Shrimp', type: 'shrimp', size: 60, glowColor: 'rgba(245, 90, 56, 0.25)', initialVx: 1.0, initialVy: -1.2 },
-              { name: 'Greek Yogurt', type: 'yogurt', size: 62, glowColor: 'rgba(110, 138, 116, 0.25)', initialVx: -1.1, initialVy: 1.1 },
-            ]}
-          />
-
+        <section className="space-y-6">
           <div className="relative z-10">
             <FoodGridWithFilters
               initialFoods={lowCalorieSnacks}

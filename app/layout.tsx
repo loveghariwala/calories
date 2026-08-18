@@ -88,6 +88,9 @@ export const metadata: Metadata = {
   },
 };
 
+import { RouteLoadingIndicator } from '@/components/RouteLoadingIndicator';
+import { Suspense } from 'react';
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -107,6 +110,9 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-[#FAF8F5] text-[#181513] selection:bg-[#C4552D] selection:text-white font-sans">
+        <Suspense fallback={null}>
+          <RouteLoadingIndicator />
+        </Suspense>
         <Navbar />
         <div className="flex-1">{children}</div>
         <Footer />
