@@ -15,6 +15,9 @@ import { generateFaqJsonLd } from '@/lib/seo';
 import { ArrowUpRight, Award, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 
+// 24-Hour Incremental Static Regeneration (ISR)
+export const revalidate = 2592000;
+
 export default async function Home() {
   // Dynamically query Live USDA FoodData Central API for section foods
   const [highProteinFoods, breakfastStaples, lowCalorieSnacks] = await Promise.all([

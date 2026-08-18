@@ -89,6 +89,7 @@ export const metadata: Metadata = {
 };
 
 import { RouteLoadingIndicator } from '@/components/RouteLoadingIndicator';
+import Script from 'next/script';
 import { Suspense } from 'react';
 
 export default function RootLayout({
@@ -104,6 +105,22 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
+        {/* Google Analytics 4 (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-GW8JM9GKC9"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-GW8JM9GKC9', {
+              page_path: window.location.pathname,
+            });
+          `}
+        </Script>
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
