@@ -106,6 +106,7 @@ export default function RootLayout({
     >
       <head>
         {/* Google Analytics 4 (gtag.js) */}
+
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-GW8JM9GKC9"
           strategy="afterInteractive"
