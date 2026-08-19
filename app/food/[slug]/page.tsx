@@ -73,6 +73,11 @@ export async function generateMetadata({ params }: FoodPageProps): Promise<Metad
       siteName: 'CaloriePulse',
       type: 'article',
     },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
   };
 }
 

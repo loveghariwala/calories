@@ -15,12 +15,40 @@ export function getCanonicalUrl(path: string): string {
 
 /**
  * Generate high-CTR dynamic SEO Title for a Food Item
- * Target: 55-60 chars optimal for Google SERP
+ * Intelligently targets search intent (Protein, Net Carbs, Low Calorie) while keeping within 50-60 chars for Google SERP
  */
 export function generateFoodMetaTitle(food: FoodItem): string {
   const defaultServing = food.servings.find((s) => s.isDefault) || food.servings[0];
-  const servingText = defaultServing ? ` (${defaultServing.label})` : ' (100g)';
-  return `${food.name} Calories, Protein & Nutrition Facts${servingText} | ${SITE_NAME}`;
+  const ratio = (defaultServing ? defaultServing.weightGrams : 100) / 100;
+  const cals = Math.round(food.nutrientsPer100g.calories * ratio);
+  const prot = Math.round(food.nutrientsPer100g.protein * ratio * 10) / 10;
+  const netCarbs = Math.max(0, Math.round((food.nutrientsPer100g.carbohydrates - (food.nutrientsPer100g.fiber || 0)) * ratio * 10) / 10);
+  const servingLabel = defaultServing ? defaultServing.label : '100g';
+
+  const isHighProtein = (food.nutrientsPer100g.protein * 4) / (food.nutrientsPer100g.calories || 1) >= 0.25 || food.nutrientsPer100g.protein >= 12;
+  const isKeto = (food.nutrientsPer100g.carbohydrates - (food.nutrientsPer100g.fiber || 0)) <= 5 && food.nutrientsPer100g.fat >= 5;
+  const isLowCal = food.nutrientsPer100g.calories <= 55;
+
+  let title = '';
+  if (isHighProtein && prot > 0) {
+    title = `${food.name} Calories, Protein (${prot}g) & Nutrition (${servingLabel}) | ${SITE_NAME}`;
+  } else if (isKeto) {
+    title = `${food.name} Calories, Net Carbs (${netCarbs}g) & Macros (${servingLabel}) | ${SITE_NAME}`;
+  } else if (isLowCal) {
+    title = `${food.name} Calories (${cals} kcal) & Weight Loss Nutrition (${servingLabel}) | ${SITE_NAME}`;
+  } else {
+    title = `${food.name} Calories, Protein & Nutrition Facts (${servingLabel}) | ${SITE_NAME}`;
+  }
+
+  // If too long for Google SERP (over 65 chars), create concise high-intent version
+  if (title.length > 65) {
+    title = `${food.name} Calories & Nutrition Facts (${servingLabel}) | ${SITE_NAME}`;
+  }
+  if (title.length > 65) {
+    title = `${food.name} Calories & Macros | ${SITE_NAME}`;
+  }
+
+  return title;
 }
 
 /**
@@ -35,23 +63,57 @@ export function generateFoodMetaDescription(food: FoodItem): string {
   const prot = Math.round(food.nutrientsPer100g.protein * ratio * 10) / 10;
   const carbs = Math.round(food.nutrientsPer100g.carbohydrates * ratio * 10) / 10;
   const fat = Math.round(food.nutrientsPer100g.fat * ratio * 10) / 10;
+  const netCarbs = Math.max(0, Math.round((food.nutrientsPer100g.carbohydrates - (food.nutrientsPer100g.fiber || 0)) * ratio * 10) / 10);
   const serving = defaultServing ? defaultServing.label : '100g';
 
-  return `There are ${cals} calories in ${food.name} (${serving}). Full USDA nutrition facts: ${prot}g protein, ${carbs}g carbs, ${fat}g fat, vitamins & exercise burn time.`;
+  return `There are ${cals} calories in ${food.name} (${serving}). Detailed USDA nutrition facts: ${prot}g protein, ${carbs}g carbs (${netCarbs}g net carbs), ${fat}g fat, vitamins & exercise burn time.`;
 }
 
 /**
  * Generate Category SEO Title
  */
-export function generateCategoryMetaTitle(categoryName: string): string {
-  return `${categoryName} Calories, Protein & Macro Chart Guide | ${SITE_NAME}`;
+export function generateCategoryMetaTitle(categoryName: string, count?: number): string {
+  if (count && count > 0) {
+    return `${categoryName} Calories, Protein & Macro Chart (${count}+ Foods) | ${SITE_NAME}`;
+  }
+  return `${categoryName} Calories, Protein & Nutrition Chart Guide | ${SITE_NAME}`;
 }
 
 /**
  * Generate Category SEO Description
  */
-export function generateCategoryMetaDescription(categoryName: string, description?: string): string {
-  return `Browse complete calorie lists, protein density, and USDA nutrition facts for ${categoryName}. ${description || 'Accurate macro breakdown & daily meal planning.'}`;
+export function generateCategoryMetaDescription(categoryName: string, count?: number, avgCalories?: number, description?: string): string {
+  const countPrefix = count ? `${count}+ ` : '';
+  const avgText = avgCalories ? ` (averaging ${avgCalories} kcal per 100g)` : '';
+  return `Browse complete ${countPrefix}${categoryName} calorie lists, protein density, and USDA nutrition facts${avgText}. ${description || 'Accurate macro breakdown & daily meal planning.'}`;
+}
+
+/**
+ * Generate Comparison SEO Title
+ */
+export function generateComparisonMetaTitle(food1: FoodItem, food2: FoodItem): string {
+  const title = `${food1.name} vs ${food2.name}: Calories & Protein Comparison | ${SITE_NAME}`;
+  if (title.length > 65) {
+    return `${food1.name} vs ${food2.name} Calories & Macros | ${SITE_NAME}`;
+  }
+  return title;
+}
+
+/**
+ * Generate Comparison SEO Description
+ */
+export function generateComparisonMetaDescription(food1: FoodItem, food2: FoodItem): string {
+  const s1 = food1.servings.find((s) => s.isDefault) || food1.servings[0];
+  const s2 = food2.servings.find((s) => s.isDefault) || food2.servings[0];
+  const r1 = (s1 ? s1.weightGrams : 100) / 100;
+  const r2 = (s2 ? s2.weightGrams : 100) / 100;
+
+  const c1 = Math.round(food1.nutrientsPer100g.calories * r1);
+  const p1 = Math.round(food1.nutrientsPer100g.protein * r1 * 10) / 10;
+  const c2 = Math.round(food2.nutrientsPer100g.calories * r2);
+  const p2 = Math.round(food2.nutrientsPer100g.protein * r2 * 10) / 10;
+
+  return `Compare ${food1.name} (${c1} kcal, ${p1}g protein) vs ${food2.name} (${c2} kcal, ${p2}g protein). Complete side-by-side USDA macro comparison, nutrient density, and diet verdict.`;
 }
 
 /**

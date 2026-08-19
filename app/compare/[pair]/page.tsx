@@ -6,7 +6,12 @@ import { searchLiveUSDA, getLiveUSDAFoodById } from '@/lib/usdaApi';
 import { FoodComparisonView } from '@/components/FoodComparisonView';
 import { MonetizationSection } from '@/components/MonetizationSlots';
 import { MealBuilderDock } from '@/components/MealBuilderDock';
-import { generateBreadcrumbJsonLd, getCanonicalUrl } from '@/lib/seo';
+import {
+  generateBreadcrumbJsonLd,
+  generateComparisonMetaTitle,
+  generateComparisonMetaDescription,
+  getCanonicalUrl,
+} from '@/lib/seo';
 import { ChevronRight } from 'lucide-react';
 
 interface ComparisonPairPageProps {
@@ -29,15 +34,25 @@ export async function generateMetadata({ params }: ComparisonPairPageProps): Pro
     return { title: 'Comparison | CaloriePulse' };
   }
 
-  const food1 = getFoodBySlug(parts[0]);
-  const food2 = getFoodBySlug(parts[1]);
+  let food1 = getFoodBySlug(parts[0]);
+  let food2 = getFoodBySlug(parts[1]);
+
+  if (!food1) {
+    const fdcId = parts[0].startsWith('usda-') ? parts[0].split('-')[1] : null;
+    food1 = (fdcId ? await getLiveUSDAFoodById(fdcId) : (await searchLiveUSDA(parts[0].replace(/-/g, ' '), 1))[0]) || undefined;
+  }
+
+  if (!food2) {
+    const fdcId = parts[1].startsWith('usda-') ? parts[1].split('-')[1] : null;
+    food2 = (fdcId ? await getLiveUSDAFoodById(fdcId) : (await searchLiveUSDA(parts[1].replace(/-/g, ' '), 1))[0]) || undefined;
+  }
 
   if (!food1 || !food2) {
     return { title: 'Food Comparison | CaloriePulse' };
   }
 
-  const title = `${food1.name} vs ${food2.name} Calories, Protein & Nutrition Comparison | CaloriePulse`;
-  const description = `Compare ${food1.name} (${food1.nutrientsPer100g.calories} kcal, ${food1.nutrientsPer100g.protein}g protein) vs ${food2.name} (${food2.nutrientsPer100g.calories} kcal, ${food2.nutrientsPer100g.protein}g protein). Complete macro breakdown & comparison.`;
+  const title = generateComparisonMetaTitle(food1, food2);
+  const description = generateComparisonMetaDescription(food1, food2);
   const canonical = getCanonicalUrl(`/compare/${pair}`);
 
   return {

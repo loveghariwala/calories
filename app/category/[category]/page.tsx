@@ -37,8 +37,13 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     };
   }
 
-  const title = generateCategoryMetaTitle(catMeta.name);
-  const description = generateCategoryMetaDescription(catMeta.name, catMeta.description);
+  const foods = getFoodsByCategory(catMeta.slug);
+  const avgCalories = foods.length > 0
+    ? Math.round(foods.reduce((sum, f) => sum + (f.nutrientsPer100g?.calories || 0), 0) / foods.length)
+    : undefined;
+
+  const title = generateCategoryMetaTitle(catMeta.name, foods.length);
+  const description = generateCategoryMetaDescription(catMeta.name, foods.length, avgCalories, catMeta.description);
   const canonical = getCanonicalUrl(`/category/${catMeta.slug}`);
 
   return {
