@@ -3,7 +3,7 @@ import { Flame, Sparkles } from 'lucide-react';
 
 export default function Loading() {
   return (
-    <div className="fixed inset-0 z-99999 flex flex-col items-center justify-center bg-[#FAF8F5]/80 backdrop-blur-sm font-sans select-none">
+    <div className="fixed inset-0 z-99999 pointer-events-none flex flex-col items-center justify-center bg-[#FAF8F5]/80 backdrop-blur-sm font-sans select-none">
       {/* 1. Center Animated Laboratory Badge */}
       <div className="flex flex-col items-center gap-4 animate-in fade-in duration-200">
         <div className="relative flex items-center justify-center">

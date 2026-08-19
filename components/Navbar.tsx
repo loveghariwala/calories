@@ -55,7 +55,7 @@ export const Navbar: React.FC = () => {
 
   const navLinks = [
     { label: 'Directory', href: '/#categories', icon: Layers },
-    { label: 'Calculators', href: '/#calculators', icon: Flame },
+    { label: 'Calculators', href: '/calorie-calculator', icon: Flame },
     { label: 'Food Face-Off', href: '/compare', icon: Scale },
     { label: 'Circadian Timing', href: '/#circadian', icon: Sparkles },
     { label: 'USDA Standards', href: '/#faq', icon: BookOpen },
@@ -76,11 +76,10 @@ export const Navbar: React.FC = () => {
   return (
     <>
       <header
-        className={`sticky top-0 z-40 w-full transition-all duration-300 ${
-          isScrolled
+        className={`sticky top-0 z-40 w-full transition-all duration-300 ${isScrolled
             ? 'bg-[#FAF8F5]/95 backdrop-blur-xl border-b border-[#EAE3D9] shadow-xs'
             : 'bg-[#FAF8F5]/85 backdrop-blur-md border-b border-[#EAE3D9]/70'
-        }`}
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 sm:h-20 flex items-center justify-between gap-3 sm:gap-6">
           {/* Masthead Brand */}
@@ -120,11 +119,10 @@ export const Navbar: React.FC = () => {
                     key={link.label}
                     href={link.href}
                     onClick={(e) => handleNavClick(e, link.href)}
-                    className={`px-3.5 py-2 rounded-full text-xs font-sans font-medium transition-all flex items-center gap-1.5 whitespace-nowrap ${
-                      isActive
+                    className={`px-3.5 py-2 rounded-full text-xs font-sans font-medium transition-all flex items-center gap-1.5 whitespace-nowrap ${isActive
                         ? 'bg-white text-[#C4552D] font-bold border border-[#EAE3D9] shadow-2xs'
                         : 'text-[#786C62] hover:text-[#181513] hover:bg-white/80'
-                    }`}
+                      }`}
                   >
                     <Icon className="w-3.5 h-3.5 opacity-70 shrink-0" />
                     <span>{link.label}</span>

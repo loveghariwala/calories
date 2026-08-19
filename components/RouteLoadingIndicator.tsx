@@ -16,26 +16,31 @@ export const RouteLoadingIndicator: React.FC = () => {
   // Complete loading when pathname or query parameters change
   useEffect(() => {
     if (loading) {
-      const elapsed = Date.now() - navStartTimeRef.current;
-      const minDisplayTime = 380; // Ensure the animation is delightfully visible
-      const remaining = Math.max(0, minDisplayTime - elapsed);
-
-      minTimerRef.current = setTimeout(() => {
+      const finishTimer = setTimeout(() => {
         setProgress(100);
         setFadeOut(true);
-        const hideTimer = setTimeout(() => {
+        setTimeout(() => {
           setLoading(false);
           setProgress(0);
           setFadeOut(false);
-        }, 250);
-        return () => clearTimeout(hideTimer);
-      }, remaining);
+        }, 150);
+      }, 100);
 
-      return () => {
-        if (minTimerRef.current) clearTimeout(minTimerRef.current);
-      };
+      return () => clearTimeout(finishTimer);
     }
-  }, [pathname, searchParams]);
+  }, [pathname, searchParams, loading]);
+
+  // Safety fallback: Never stay stuck for more than 1 second under any circumstance
+  useEffect(() => {
+    if (loading) {
+      const maxSafetyTimer = setTimeout(() => {
+        setLoading(false);
+        setProgress(0);
+        setFadeOut(false);
+      }, 1000);
+      return () => clearTimeout(maxSafetyTimer);
+    }
+  }, [loading]);
 
   // Intercept internal link clicks to trigger animated loading transition
   useEffect(() => {
@@ -64,15 +69,9 @@ export const RouteLoadingIndicator: React.FC = () => {
           navStartTimeRef.current = Date.now();
           setFadeOut(false);
           setLoading(true);
-          setProgress(30);
+          setProgress(40);
 
-          const t1 = setTimeout(() => setProgress((prev) => (prev < 70 ? 70 : prev)), 120);
-          const t2 = setTimeout(() => setProgress((prev) => (prev < 90 ? 90 : prev)), 260);
-
-          return () => {
-            clearTimeout(t1);
-            clearTimeout(t2);
-          };
+          setTimeout(() => setProgress((prev) => (prev > 0 && prev < 80 ? 80 : prev)), 80);
         }
       }
     };
