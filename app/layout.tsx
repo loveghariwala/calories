@@ -90,6 +90,10 @@ export const metadata: Metadata = {
   },
   verification: {
     google: 'hyZqyROtTl3aFS0xh_xojc8lBUNIPqgtILJbIMflcUs',
+    yandex: 'fd33b3ec1671bef9',
+    other: {
+      'yandex-verification': 'fd33b3ec1671bef9',
+    },
   },
 };
 
