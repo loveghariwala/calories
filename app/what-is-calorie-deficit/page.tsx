@@ -5,28 +5,35 @@ import { generateFaqJsonLd, getCanonicalUrl } from '@/lib/seo';
 import { Award, ChevronRight, CheckCircle2, Flame, ArrowRight, Scale, Calculator, Dumbbell } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'What is a Calorie Deficit? How to Calculate & Lose Fat | CaloriePulse',
+  title: 'Counting Calories: What is a Calorie Deficit & How to Calculate | CaloriePulse',
   description:
-    'Learn what a calorie deficit is, how to calculate your exact deficit for weight loss, and how to eat in a deficit while preserving muscle. Evidence-based clinical guide with USDA data.',
+    'Understanding calories: get back to weight-loss basics. Learn what a calorie deficit is, how to calculate your exact deficit, and how many calories to eat to lose weight.',
   keywords: [
     'what is calorie deficit',
     'what is a calorie deficit',
+    'counting calories',
     'how to calculate calorie deficit',
+    'how much calories should i eat to lose weight',
     'how to be in a calorie deficit',
-    'how to eat in a calorie deficit',
-    'what should my calorie deficit be',
+    'what is calories in body',
     'calorie deficit for weight loss',
   ],
   alternates: {
     canonical: getCanonicalUrl('/what-is-calorie-deficit'),
   },
   openGraph: {
-    title: 'What is a Calorie Deficit? How to Calculate & Lose Fat',
+    title: 'Counting Calories: What is a Calorie Deficit & How to Calculate',
     description:
-      'The definitive guide to understanding energy balance, calculating your deficit, and burning fat without metabolic slowdown.',
+      'Understanding calories: get back to weight-loss basics. Learn what a calorie deficit is, how to calculate your exact deficit, and how many calories to eat to lose weight.',
     url: getCanonicalUrl('/what-is-calorie-deficit'),
     siteName: 'CaloriePulse',
     type: 'article',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Counting Calories: What is a Calorie Deficit & How to Calculate',
+    description:
+      'Understanding calories: get back to weight-loss basics. Learn what a calorie deficit is, how to calculate your exact deficit, and how many calories to eat to lose weight.',
   },
 };
 

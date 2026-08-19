@@ -6,17 +6,17 @@ import { generateFaqJsonLd, getCanonicalUrl } from '@/lib/seo';
 import { Award, ChevronRight, CheckCircle2, Flame, ArrowRight, Zap, Scale } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Calorie Calculator — Free Daily Calorie & TDEE Macro Planner | CaloriePulse',
+  title: 'Calorie Calculator — Daily Calorie & Calorie Deficit Calculator | CaloriePulse',
   description:
-    'Free scientific calorie calculator based on the clinical Mifflin-St Jeor equation. Calculate your exact maintenance calories, TDEE, and calorie deficit for fat loss or muscle gain.',
+    'Free calorie calculator estimates the exact number of calories needed each day to maintain, lose weight in a calorie deficit, or gain muscle. Calculate TDEE, BMR & macros.',
   keywords: [
     'calorie calculator',
-    'free calorie calculator',
-    'daily calorie calculator',
     'calorie deficit calculator',
+    'how much calories should i eat to lose weight',
+    'food calorie calculator',
+    'daily calorie calculator',
     'maintenance calorie calculator',
     'tdee calculator',
-    'how many calories should i eat',
     'macro calculator',
     'bmr calculator',
   ],
@@ -24,12 +24,18 @@ export const metadata: Metadata = {
     canonical: getCanonicalUrl('/calorie-calculator'),
   },
   openGraph: {
-    title: 'Calorie Calculator — Free Daily Calorie & TDEE Macro Planner',
+    title: 'Calorie Calculator — Daily Calorie & Calorie Deficit Calculator',
     description:
-      'Calculate your exact maintenance calories, TDEE, and calorie deficit for fat loss or muscle gain with clinical accuracy.',
+      'Free calorie calculator estimates the exact number of calories needed each day to maintain, lose weight in a calorie deficit, or gain muscle.',
     url: getCanonicalUrl('/calorie-calculator'),
     siteName: 'CaloriePulse',
     type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Calorie Calculator — Daily Calorie & Calorie Deficit Calculator',
+    description:
+      'Free calorie calculator estimates the exact number of calories needed each day to maintain, lose weight in a calorie deficit, or gain muscle.',
   },
 };
 

@@ -7,29 +7,34 @@ import { generateFaqJsonLd, getCanonicalUrl } from '@/lib/seo';
 import { Award, ChevronRight, Sparkles, Flame, Apple, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Low Calorie Snacks — 50+ Healthy Snacks Under 100 Calories | CaloriePulse',
+  title: 'Calorie Chart: Low Calorie Snacks & Their Counts Under 100 kcal | CaloriePulse',
   description:
-    'Discover the best low calorie snacks under 50, 100, and 150 calories. High protein, fiber-rich whole foods, and filling snack ideas with exact USDA calorie & macro counts.',
+    'Browse our low calorie snack chart and counts. Discover filling whole food snacks under 50, 100, and 150 calories with USDA protein and nutrition facts.',
   keywords: [
     'low calorie snacks',
-    'healthy low calorie snacks',
+    'calories in food',
     'low calorie snacks under 100 calories',
+    'healthy low calorie snacks',
     'filling low calorie snacks',
-    'high protein low calorie snacks',
-    'low calorie snack ideas',
+    'calorie chart common foods and their counts',
     'snacks for weight loss',
-    'zero calorie snacks',
   ],
   alternates: {
     canonical: getCanonicalUrl('/low-calorie-snacks'),
   },
   openGraph: {
-    title: 'Low Calorie Snacks — 50+ Healthy Snacks Under 100 Calories',
+    title: 'Calorie Chart: Low Calorie Snacks & Their Counts Under 100 kcal',
     description:
-      'Curated list of filling, nutrient-dense low calorie snacks for fat loss with complete USDA nutrition facts.',
+      'Browse our low calorie snack chart and counts. Discover filling whole food snacks under 50, 100, and 150 calories with USDA protein and nutrition facts.',
     url: getCanonicalUrl('/low-calorie-snacks'),
     siteName: 'CaloriePulse',
     type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Calorie Chart: Low Calorie Snacks & Their Counts Under 100 kcal',
+    description:
+      'Browse our low calorie snack chart and counts. Discover filling whole food snacks under 50, 100, and 150 calories with USDA protein and nutrition facts.',
   },
 };
 

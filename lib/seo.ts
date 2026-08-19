@@ -15,7 +15,8 @@ export function getCanonicalUrl(path: string): string {
 
 /**
  * Generate high-CTR dynamic SEO Title for a Food Item
- * Intelligently targets search intent (Protein, Net Carbs, Low Calorie) while keeping within 50-60 chars for Google SERP
+ * Modeled after top authority structures (FDA Nutrition Facts + WebMD Calorie Counts)
+ * Keeps strictly within 50-65 chars for Google SERP
  */
 export function generateFoodMetaTitle(food: FoodItem): string {
   const defaultServing = food.servings.find((s) => s.isDefault) || food.servings[0];
@@ -31,21 +32,21 @@ export function generateFoodMetaTitle(food: FoodItem): string {
 
   let title = '';
   if (isHighProtein && prot > 0) {
-    title = `${food.name} Calories, Protein (${prot}g) & Nutrition (${servingLabel}) | ${SITE_NAME}`;
+    title = `${food.name} Calories, Protein (${prot}g) & Nutrition Facts | ${SITE_NAME}`;
   } else if (isKeto) {
-    title = `${food.name} Calories, Net Carbs (${netCarbs}g) & Macros (${servingLabel}) | ${SITE_NAME}`;
+    title = `${food.name} Calories, Net Carbs (${netCarbs}g) & Nutrition Facts | ${SITE_NAME}`;
   } else if (isLowCal) {
-    title = `${food.name} Calories (${cals} kcal) & Weight Loss Nutrition (${servingLabel}) | ${SITE_NAME}`;
+    title = `${food.name} Calories (${cals} kcal) & Weight Loss Nutrition Facts | ${SITE_NAME}`;
   } else {
-    title = `${food.name} Calories, Protein & Nutrition Facts (${servingLabel}) | ${SITE_NAME}`;
+    title = `${food.name} Calories & Nutrition Facts Label (${servingLabel}) | ${SITE_NAME}`;
   }
 
-  // If too long for Google SERP (over 65 chars), create concise high-intent version
+  // Optimize for SERP width (max 65 chars)
   if (title.length > 65) {
     title = `${food.name} Calories & Nutrition Facts (${servingLabel}) | ${SITE_NAME}`;
   }
   if (title.length > 65) {
-    title = `${food.name} Calories & Macros | ${SITE_NAME}`;
+    title = `${food.name} Calories & Macro Counts | ${SITE_NAME}`;
   }
 
   return title;
@@ -66,17 +67,20 @@ export function generateFoodMetaDescription(food: FoodItem): string {
   const netCarbs = Math.max(0, Math.round((food.nutrientsPer100g.carbohydrates - (food.nutrientsPer100g.fiber || 0)) * ratio * 10) / 10);
   const serving = defaultServing ? defaultServing.label : '100g';
 
-  return `There are ${cals} calories in ${food.name} (${serving}). Detailed USDA nutrition facts: ${prot}g protein, ${carbs}g carbs (${netCarbs}g net carbs), ${fat}g fat, vitamins & exercise burn time.`;
+  return `There are ${cals} calories in ${food.name} (${serving}). Full USDA nutrition facts label: ${prot}g protein, ${carbs}g carbs (${netCarbs}g net carbs), ${fat}g fat & exercise burn time.`;
 }
 
 /**
  * Generate Category SEO Title
+ * Modeled after WebMD's #1 ranking "Calorie Chart: Common Foods and Their Counts"
  */
 export function generateCategoryMetaTitle(categoryName: string, count?: number): string {
-  if (count && count > 0) {
-    return `${categoryName} Calories, Protein & Macro Chart (${count}+ Foods) | ${SITE_NAME}`;
+  const countSuffix = count && count > 0 ? ` (${count}+ Foods)` : '';
+  const title = `Calorie Chart: ${categoryName} Foods & Their Counts${countSuffix} | ${SITE_NAME}`;
+  if (title.length > 65) {
+    return `Calorie Chart: ${categoryName} Foods & Counts | ${SITE_NAME}`;
   }
-  return `${categoryName} Calories, Protein & Nutrition Chart Guide | ${SITE_NAME}`;
+  return title;
 }
 
 /**
@@ -85,7 +89,7 @@ export function generateCategoryMetaTitle(categoryName: string, count?: number):
 export function generateCategoryMetaDescription(categoryName: string, count?: number, avgCalories?: number, description?: string): string {
   const countPrefix = count ? `${count}+ ` : '';
   const avgText = avgCalories ? ` (averaging ${avgCalories} kcal per 100g)` : '';
-  return `Browse complete ${countPrefix}${categoryName} calorie lists, protein density, and USDA nutrition facts${avgText}. ${description || 'Accurate macro breakdown & daily meal planning.'}`;
+  return `Browse our complete ${countPrefix}${categoryName} calorie chart and counts. Check calories in ${categoryName.toLowerCase()}, protein density, and USDA nutrition facts${avgText}.`;
 }
 
 /**
@@ -282,6 +286,10 @@ export function generateDefaultFaqs(food: FoodItem): { question: string; answer:
         : isLowCal
         ? `Yes! At only ${cals} calories per ${servingName}, ${food.name} is a nutrient-dense, low-calorie choice that easily fits into calorie-deficit weight loss plans.`
         : `${food.name} contains ${cals} calories per ${servingName}. When tracking your daily calorie budget, it can be enjoyed as part of a balanced diet for muscle building or energy.`,
+    },
+    {
+      question: `What is a calorie in ${food.name} and how does the body use it?`,
+      answer: `A calorie is a unit of measurement for energy. In nutrition, the ${cals} calories in ${servingName} of ${food.name} supply chemical energy that your body uses for basal metabolism, organ function, and daily physical activity.`,
     },
     {
       question: `How much exercise does it take to burn off ${cals} calories from ${food.name}?`,

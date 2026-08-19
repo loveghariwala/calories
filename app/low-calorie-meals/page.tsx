@@ -7,29 +7,34 @@ import { generateFaqJsonLd, getCanonicalUrl } from '@/lib/seo';
 import { Award, ChevronRight, Sparkles, Flame, Utensils, ArrowRight, Dumbbell } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Low Calorie Meals — 300 & 400 Calorie High-Protein Meal Ideas | CaloriePulse',
+  title: 'Calorie Chart: Low Calorie Meals & Meal Ideas for Weight Loss | CaloriePulse',
   description:
-    'Explore delicious low calorie meal combinations under 300, 400, and 500 calories. High protein, high volume dinner and lunch recipes with exact USDA calorie & macro breakdowns.',
+    'Browse our low calorie meals chart and recipe ideas under 300, 400, and 500 calories. High protein, nutrient-dense meals with USDA nutrition facts labels.',
   keywords: [
     'low calorie meals',
+    'calories in food',
     'high protein low calorie meals',
-    'low calorie dinner ideas',
     '300 calorie meals',
     '400 calorie meals',
-    'low calorie lunch',
-    'easy low calorie recipes',
+    'calorie chart common foods and their counts',
     'healthy meals for weight loss',
   ],
   alternates: {
     canonical: getCanonicalUrl('/low-calorie-meals'),
   },
   openGraph: {
-    title: 'Low Calorie Meals — 300 & 400 Calorie High-Protein Meal Ideas',
+    title: 'Calorie Chart: Low Calorie Meals & Meal Ideas for Weight Loss',
     description:
-      'Delicious, high-volume whole food meals designed for sustainable fat loss with complete USDA nutritional data.',
+      'Browse our low calorie meals chart and recipe ideas under 300, 400, and 500 calories. High protein, nutrient-dense meals with USDA nutrition facts labels.',
     url: getCanonicalUrl('/low-calorie-meals'),
     siteName: 'CaloriePulse',
     type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Calorie Chart: Low Calorie Meals & Meal Ideas for Weight Loss',
+    description:
+      'Browse our low calorie meals chart and recipe ideas under 300, 400, and 500 calories. High protein, nutrient-dense meals with USDA nutrition facts labels.',
   },
 };
 
