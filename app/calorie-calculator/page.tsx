@@ -5,41 +5,67 @@ import { MealBuilderDock } from '@/components/MealBuilderDock';
 import { generateFaqJsonLd, getCanonicalUrl } from '@/lib/seo';
 import { Award, ChevronRight, CheckCircle2, Flame, ArrowRight, Zap, Scale } from 'lucide-react';
 
-export const metadata: Metadata = {
-  title: 'Calorie Calculator — Daily Calorie & Calorie Deficit Calculator | CaloriePulse',
-  description:
-    'Free calorie calculator estimates the exact number of calories needed each day to maintain, lose weight in a calorie deficit, or gain muscle. Calculate TDEE, BMR & macros.',
-  keywords: [
-    'calorie calculator',
-    'calorie deficit calculator',
-    'how much calories should i eat to lose weight',
-    'food calorie calculator',
-    'daily calorie calculator',
-    'maintenance calorie calculator',
-    'tdee calculator',
-    'macro calculator',
-    'bmr calculator',
-  ],
-  alternates: {
-    canonical: getCanonicalUrl('/calorie-calculator'),
-  },
-  openGraph: {
-    title: 'Calorie Calculator — Daily Calorie & Calorie Deficit Calculator',
-    description:
-      'Free calorie calculator estimates the exact number of calories needed each day to maintain, lose weight in a calorie deficit, or gain muscle.',
-    url: getCanonicalUrl('/calorie-calculator'),
-    siteName: 'CaloriePulse',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Calorie Calculator — Daily Calorie & Calorie Deficit Calculator',
-    description:
-      'Free calorie calculator estimates the exact number of calories needed each day to maintain, lose weight in a calorie deficit, or gain muscle.',
-  },
-};
+interface CalorieCalculatorPageProps {
+  searchParams: Promise<{
+    goal?: string;
+    calories?: string;
+    target?: string;
+  }>;
+}
 
-export default function CalorieCalculatorPage() {
+export async function generateMetadata({ searchParams }: CalorieCalculatorPageProps): Promise<Metadata> {
+  const { goal, calories, target } = await searchParams;
+
+  let title = 'Calorie Calculator — Daily Calorie & Calorie Deficit Calculator | CaloriePulse';
+  let description =
+    'Free scientific calorie calculator based on clinical equations. Calculate your exact maintenance calories, TDEE, and calorie deficit for fat loss or muscle gain.';
+
+  if (calories) {
+    title = `${calories} Calorie Meal & Deficit Calculator — Daily Macro Plan | CaloriePulse`;
+    description = `Calculate how to eat ${calories} calories a day for fat loss or muscle gain. Exact macro breakdowns, protein targets, and TDEE calorie deficit calculations.`;
+  } else if (goal === 'weight-loss' || target === 'deficit') {
+    title = 'Calorie Deficit Calculator — Exact Calories to Lose Weight | CaloriePulse';
+    description = 'Calculate your personalized calorie deficit for safe fat loss. Determine how many calories to eat each day based on your Mifflin-St Jeor TDEE.';
+  } else if (goal === 'muscle-gain' || target === 'surplus') {
+    title = 'Calorie Surplus & Muscle Gain Calculator — Daily Macros | CaloriePulse';
+    description = 'Calculate your calorie surplus and daily protein requirements for lean muscle building without excess fat gain.';
+  }
+
+  const canonical = getCanonicalUrl('/calorie-calculator');
+
+  return {
+    title,
+    description,
+    keywords: [
+      'calorie calculator',
+      'calorie deficit calculator',
+      'how much calories should i eat to lose weight',
+      'food calorie calculator',
+      'daily calorie calculator',
+      'maintenance calorie calculator',
+      'tdee calculator',
+      'macro calculator',
+      'bmr calculator',
+    ],
+    alternates: {
+      canonical,
+    },
+    openGraph: {
+      title,
+      description,
+      url: canonical,
+      siteName: 'CaloriePulse',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
+  };
+}
+
+export default async function CalorieCalculatorPage({ searchParams }: CalorieCalculatorPageProps) {
   const calculatorFaqs = [
     {
       q: 'How does this calorie calculator work?',

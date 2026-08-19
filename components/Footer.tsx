@@ -57,6 +57,11 @@ export const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
+                <Link href="/what-is-a-calorie" className="hover:text-[#C4552D] font-medium transition-colors">
+                  💡 What is a Calorie?
+                </Link>
+              </li>
+              <li>
                 <Link href="/what-is-calorie-deficit" className="hover:text-[#C4552D] font-medium transition-colors">
                   📖 What is Calorie Deficit?
                 </Link>
