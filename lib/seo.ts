@@ -121,20 +121,31 @@ export function generateComparisonMetaDescription(food1: FoodItem, food2: FoodIt
 }
 
 /**
- * Generate SEO Keywords for a Food Item
+ * Generate SEO Keywords & Semantic Synonym Matrix for a Food Item
  */
 export function generateFoodKeywords(food: FoodItem): string[] {
   const baseName = food.name.toLowerCase();
+  const cals = food.nutrientsPer100g.calories;
+  const kJ = Math.round(cals * 4.184);
+
   return [
     `${baseName} calories`,
+    `${baseName} energy`,
+    `${baseName} kcal`,
+    `${baseName} kilocalories`,
+    `${baseName} food energy`,
+    `how much energy in ${baseName}`,
     `how many calories in ${baseName}`,
-    `${baseName} nutrition facts`,
+    `${baseName} nutrition facts label`,
     `${baseName} protein grams`,
     `${baseName} macros`,
-    `${baseName} carbs`,
+    `${baseName} carbs and fat`,
+    `${baseName} ${cals} kcal`,
+    `${baseName} ${kJ} kJ energy`,
     `${baseName} calories 100g`,
     `is ${baseName} healthy`,
     `is ${baseName} keto`,
+    `dietary energy in ${baseName}`,
     `${food.categoryName.toLowerCase()} calorie lookup`,
     ...food.tags,
   ];
@@ -148,6 +159,7 @@ export function generateNutritionJsonLd(food: FoodItem) {
   const ratio = (defaultServing ? defaultServing.weightGrams : 100) / 100;
   
   const cals = Math.round(food.nutrientsPer100g.calories * ratio);
+  const kJ = Math.round(cals * 4.184);
   const prot = `${Math.round(food.nutrientsPer100g.protein * ratio * 10) / 10} g`;
   const carbs = `${Math.round(food.nutrientsPer100g.carbohydrates * ratio * 10) / 10} g`;
   const fat = `${Math.round(food.nutrientsPer100g.fat * ratio * 10) / 10} g`;
@@ -172,6 +184,18 @@ export function generateNutritionJsonLd(food: FoodItem) {
     image: `${SITE_URL}/og-images/${food.slug}.png`,
     url: url,
     category: food.categoryName,
+    about: [
+      {
+        '@type': 'Thing',
+        name: 'Food energy',
+        sameAs: 'https://en.wikipedia.org/wiki/Food_energy',
+      },
+      {
+        '@type': 'Thing',
+        name: 'Calorie',
+        sameAs: 'https://en.wikipedia.org/wiki/Calorie',
+      },
+    ],
     nutrition: {
       '@type': 'NutritionInformation',
       '@id': `${url}#nutrition`,
@@ -228,7 +252,7 @@ export function generateFaqJsonLd(faqs: { q?: string; a?: string; question?: str
 }
 
 /**
- * Generate WebSite Schema with Sitelinks SearchBox
+ * Generate WebSite Schema with Sitelinks SearchBox & Global Knowledge Entity Links
  */
 export function generateWebSiteJsonLd() {
   return {
@@ -237,7 +261,36 @@ export function generateWebSiteJsonLd() {
     '@id': `${SITE_URL}/#website`,
     url: SITE_URL,
     name: SITE_NAME,
+    alternateName: [
+      'CaloriePulse',
+      'Calorie Pulse',
+      'Food Energy & Calorie Guide',
+      'USDA Food Nutrition Facts & Calorie Calculator',
+    ],
     description: SITE_TAGLINE,
+    about: [
+      {
+        '@type': 'Thing',
+        name: 'Calorie',
+        sameAs: [
+          'https://en.wikipedia.org/wiki/Calorie',
+          'https://www.wikidata.org/wiki/Q130964',
+        ],
+      },
+      {
+        '@type': 'Thing',
+        name: 'Food energy',
+        sameAs: [
+          'https://en.wikipedia.org/wiki/Food_energy',
+          'https://www.wikidata.org/wiki/Q11387',
+        ],
+      },
+      {
+        '@type': 'Thing',
+        name: 'Basal metabolic rate',
+        sameAs: 'https://en.wikipedia.org/wiki/Basal_metabolic_rate',
+      },
+    ],
     potentialAction: {
       '@type': 'SearchAction',
       target: {
