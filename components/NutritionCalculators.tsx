@@ -155,28 +155,7 @@ export const NutritionCalculators: React.FC = () => {
     }
   }, []);
 
-  // Update URL Search Params dynamically on change for bookmarking / sharing
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    try {
-      const url = new URL(window.location.href);
-      if (age !== '') url.searchParams.set('cage', String(age));
-      url.searchParams.set('csex', gender === 'male' ? 'm' : 'f');
-      url.searchParams.set('ctype', unit);
-      if (unit === 'imperial') {
-        if (heightFeet !== '') url.searchParams.set('cheightfeet', String(heightFeet));
-        if (heightInches !== '') url.searchParams.set('cheightinch', String(heightInches));
-        if (weightLbs !== '') url.searchParams.set('cpound', String(weightLbs));
-      } else {
-        if (heightCm !== '') url.searchParams.set('cheightmeter', String(heightCm));
-        if (weightKg !== '') url.searchParams.set('ckg', String(weightKg));
-      }
-      url.searchParams.set('cformula', formula);
-      if (bodyFatInput !== '') url.searchParams.set('cfatpct', String(bodyFatInput));
-      url.searchParams.set('coutunit', energyUnit === 'kj' ? 'j' : 'c');
-      window.history.replaceState({}, '', url.toString());
-    } catch {}
-  }, [age, gender, unit, heightFeet, heightInches, weightLbs, heightCm, weightKg, formula, bodyFatInput, energyUnit]);
+
 
   // Normalize numeric values for calculations
   const numAge = Number(age) || 25;
