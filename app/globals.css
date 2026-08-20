@@ -245,6 +245,17 @@ input[type="range"]::-webkit-slider-thumb:hover {
   transform: scale(1.2);
 }
 
+/* Clean Number Inputs (No Clunky Default Browser Spinners) */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 /* Custom Warm Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
@@ -260,8 +271,56 @@ input[type="range"]::-webkit-slider-thumb:hover {
   border-radius: 9999px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #C4552D;
+/* QuickLive-Inspired Kinetic Staggered Typography */
+.stagger-group {
+  position: relative;
+  cursor: default;
+}
+
+.stagger-char-wrap {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.stagger-char {
+  display: inline-block;
+  position: relative;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--stagger, 0) * 18ms);
+  transform-style: preserve-3d;
+}
+
+.stagger-char::after {
+  content: attr(data-char);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  transform: rotateX(-90deg);
+  transform-origin: top center;
+  opacity: 0.85;
+  color: var(--terracotta);
+}
+
+.stagger-group:hover .stagger-char {
+  transform: translateY(-100%) rotateX(90deg);
+}
+
+/* Elastic Kinetic Text (Spring Physics) */
+.elastic-text-wrap {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.elastic-char {
+  display: inline-block;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: calc(var(--idx, 0) * 12ms);
+}
+
+.elastic-text-wrap:hover .elastic-char {
+  transform: translateY(-3px) scale(1.1);
+  color: var(--terracotta);
 }
 
 @media print {

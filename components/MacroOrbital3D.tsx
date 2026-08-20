@@ -10,6 +10,7 @@ interface MacroOrbital3DProps {
   fiber?: number;
   size?: number;
   interactive?: boolean;
+  showCenterText?: boolean;
 }
 
 export const MacroOrbital3D: React.FC<MacroOrbital3DProps> = ({
@@ -18,11 +19,11 @@ export const MacroOrbital3D: React.FC<MacroOrbital3DProps> = ({
   carbs,
   fat,
   fiber = 0,
-  size = 280,
+  size = 140,
   interactive = true,
+  showCenterText = false,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [rotation, setRotation] = useState({ x: 15, y: 25 });
   const [isHovered, setIsHovered] = useState(false);
   const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
 
@@ -36,7 +37,7 @@ export const MacroOrbital3D: React.FC<MacroOrbital3DProps> = ({
     let angle = 0;
 
     // Scale canvas for retina display
-    const dpr = window.devicePixelRatio || 1;
+    const dpr = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1;
     canvas.width = size * dpr;
     canvas.height = size * dpr;
     ctx.scale(dpr, dpr);
@@ -55,19 +56,19 @@ export const MacroOrbital3D: React.FC<MacroOrbital3DProps> = ({
       mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.08;
       mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.08;
 
-      angle += isHovered ? 0.025 : 0.012;
+      angle += isHovered ? 0.02 : 0.01;
 
       // 1. Ambient Glow Core
       const coreGradient = ctx.createRadialGradient(
         centerX,
         centerY,
-        10,
+        size * 0.05,
         centerX,
         centerY,
-        size * 0.42
+        size * 0.45
       );
-      coreGradient.addColorStop(0, 'rgba(196, 85, 45, 0.18)');
-      coreGradient.addColorStop(0.5, 'rgba(201, 130, 43, 0.08)');
+      coreGradient.addColorStop(0, 'rgba(196, 85, 45, 0.15)');
+      coreGradient.addColorStop(0.5, 'rgba(201, 130, 43, 0.06)');
       coreGradient.addColorStop(1, 'rgba(250, 248, 245, 0)');
       ctx.fillStyle = coreGradient;
       ctx.fillRect(0, 0, size, size);
@@ -84,27 +85,27 @@ export const MacroOrbital3D: React.FC<MacroOrbital3DProps> = ({
         particleColor: string
       ) => {
         ctx.save();
-        ctx.translate(centerX + mouseRef.current.x * 12, centerY + mouseRef.current.y * 12);
+        ctx.translate(centerX + mouseRef.current.x * (size * 0.05), centerY + mouseRef.current.y * (size * 0.05));
         ctx.rotate(tiltAngle);
 
-        // Orbit Ellipse path
+        // Orbit Ellipse background path
         ctx.beginPath();
         ctx.ellipse(0, 0, radiusX, radiusY, 0, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(234, 227, 217, 0.6)';
-        ctx.lineWidth = 1.5;
-        ctx.setLineDash([4, 6]);
+        ctx.strokeStyle = 'rgba(234, 227, 217, 0.7)';
+        ctx.lineWidth = Math.max(1, lineWidth * 0.4);
+        ctx.setLineDash([3, 4]);
         ctx.stroke();
         ctx.setLineDash([]);
 
         // Active Macro Arc
         const startAngle = angle * rotationOffset;
-        const arcLength = Math.max(0.4, activeRatio * Math.PI * 2);
+        const arcLength = Math.max(0.35, activeRatio * Math.PI * 2);
         ctx.beginPath();
         ctx.ellipse(0, 0, radiusX, radiusY, 0, startAngle, startAngle + arcLength);
         ctx.strokeStyle = color;
         ctx.lineWidth = lineWidth;
         ctx.shadowColor = color;
-        ctx.shadowBlur = 10;
+        ctx.shadowBlur = 8;
         ctx.stroke();
         ctx.shadowBlur = 0;
 
@@ -114,15 +115,15 @@ export const MacroOrbital3D: React.FC<MacroOrbital3DProps> = ({
         const particleY = Math.sin(headAngle) * radiusY;
 
         ctx.beginPath();
-        ctx.arc(particleX, particleY, 4.5, 0, Math.PI * 2);
+        ctx.arc(particleX, particleY, Math.max(2.5, size * 0.025), 0, Math.PI * 2);
         ctx.fillStyle = '#FFFFFF';
         ctx.shadowColor = particleColor;
-        ctx.shadowBlur = 12;
+        ctx.shadowBlur = 8;
         ctx.fill();
         ctx.shadowBlur = 0;
 
         ctx.beginPath();
-        ctx.arc(particleX, particleY, 2.5, 0, Math.PI * 2);
+        ctx.arc(particleX, particleY, Math.max(1.5, size * 0.015), 0, Math.PI * 2);
         ctx.fillStyle = particleColor;
         ctx.fill();
 
@@ -131,82 +132,64 @@ export const MacroOrbital3D: React.FC<MacroOrbital3DProps> = ({
 
       // Outer Orbit: Protein (Forest Olive Glow)
       drawOrbitRing(
-        size * 0.4,
+        size * 0.38,
         size * 0.16,
-        -Math.PI / 6 + mouseRef.current.y * 0.2,
+        -Math.PI / 6 + mouseRef.current.y * 0.15,
         1.1,
         '#3B5842',
-        3.5,
+        Math.max(2, size * 0.02),
         pRatio,
         '#527A5C'
       );
 
       // Middle Orbit: Carbohydrates (Warm Gold Sunburst)
       drawOrbitRing(
-        size * 0.32,
-        size * 0.14,
-        Math.PI / 4 + mouseRef.current.x * 0.2,
+        size * 0.30,
+        size * 0.13,
+        Math.PI / 4 + mouseRef.current.x * 0.15,
         -1.3,
         '#C9822B',
-        3,
+        Math.max(1.8, size * 0.018),
         cRatio,
         '#E59E44'
       );
 
       // Inner Orbit: Dietary Lipids (Terracotta Core)
       drawOrbitRing(
-        size * 0.24,
-        size * 0.11,
-        -Math.PI / 3 + mouseRef.current.y * 0.15,
+        size * 0.22,
+        size * 0.10,
+        -Math.PI / 3 + mouseRef.current.y * 0.12,
         1.5,
         '#C4552D',
-        2.5,
+        Math.max(1.6, size * 0.016),
         fRatio,
         '#E06B42'
       );
 
-      // Ambient 3D Star Particles
-      for (let i = 0; i < 8; i++) {
-        const pAngle = angle * (0.4 + i * 0.15) + (i * Math.PI) / 4;
-        const pDist = size * 0.2 + (i % 3) * 14 + Math.sin(angle * 2 + i) * 6;
-        const px = centerX + Math.cos(pAngle) * pDist + mouseRef.current.x * 6;
-        const py = centerY + Math.sin(pAngle) * (pDist * 0.5) + mouseRef.current.y * 6;
-        const pAlpha = 0.3 + Math.sin(angle * 4 + i) * 0.25;
-
-        ctx.beginPath();
-        ctx.arc(px, py, 1.5, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(196, 85, 45, ${Math.max(0.1, pAlpha)})`;
-        ctx.shadowColor = '#C9822B';
-        ctx.shadowBlur = 4;
-        ctx.fill();
-        ctx.shadowBlur = 0;
-      }
-
-      // Center Metabolic Nexus Sphere
+      // Center Core Sphere
       ctx.save();
-      ctx.translate(centerX + mouseRef.current.x * 8, centerY + mouseRef.current.y * 8);
+      ctx.translate(centerX + mouseRef.current.x * (size * 0.03), centerY + mouseRef.current.y * (size * 0.03));
 
-      const sphereGrad = ctx.createRadialGradient(-6, -6, 2, 0, 0, 24);
+      const sphereRadius = Math.max(8, size * 0.08);
+      const sphereGrad = ctx.createRadialGradient(-sphereRadius * 0.3, -sphereRadius * 0.3, 1, 0, 0, sphereRadius);
       sphereGrad.addColorStop(0, '#FFFFFF');
       sphereGrad.addColorStop(0.3, '#FAF8F5');
       sphereGrad.addColorStop(0.8, '#EAE3D9');
       sphereGrad.addColorStop(1, '#D4C8BA');
 
       ctx.beginPath();
-      ctx.arc(0, 0, 22, 0, Math.PI * 2);
+      ctx.arc(0, 0, sphereRadius, 0, Math.PI * 2);
       ctx.fillStyle = sphereGrad;
-      ctx.shadowColor = 'rgba(196, 85, 45, 0.25)';
-      ctx.shadowBlur = 14;
-      ctx.shadowOffsetY = 4;
+      ctx.shadowColor = 'rgba(196, 85, 45, 0.2)';
+      ctx.shadowBlur = 10;
       ctx.fill();
       ctx.shadowBlur = 0;
-      ctx.shadowOffsetY = 0;
 
       // Pulsing Center Ring
       ctx.beginPath();
-      ctx.arc(0, 0, 26 + Math.sin(angle * 3) * 2, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(196, 85, 45, 0.4)';
-      ctx.lineWidth = 1.5;
+      ctx.arc(0, 0, sphereRadius + 3 + Math.sin(angle * 3) * 1.5, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(196, 85, 45, 0.35)';
+      ctx.lineWidth = 1;
       ctx.stroke();
 
       ctx.restore();
@@ -250,15 +233,16 @@ export const MacroOrbital3D: React.FC<MacroOrbital3DProps> = ({
         className="transform-gpu transition-transform duration-300 group-hover:scale-105"
       />
 
-      {/* Floating Center Calorie Badge */}
-      <div className="absolute flex flex-col items-center justify-center pointer-events-none transform-gpu transition-transform duration-200 group-hover:scale-110">
-        <span className="text-xl sm:text-2xl font-serif font-bold text-[#181513] leading-none drop-shadow-xs">
-          {calories}
-        </span>
-        <span className="text-[9px] font-sans font-bold tracking-widest uppercase text-[#C4552D] mt-0.5">
-          kcal
-        </span>
-      </div>
+      {showCenterText && (
+        <div className="absolute flex flex-col items-center justify-center pointer-events-none transform-gpu transition-transform duration-200 group-hover:scale-110">
+          <span className="text-sm sm:text-base font-serif font-bold text-[#181513] leading-none">
+            {calories}
+          </span>
+          <span className="text-[8px] font-sans font-bold tracking-widest uppercase text-[#C4552D] mt-0.5">
+            kcal
+          </span>
+        </div>
+      )}
     </div>
   );
 };
