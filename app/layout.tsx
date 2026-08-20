@@ -21,13 +21,19 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `Calorie Chart & Counts: Food Calories & Calorie Calculator | ${SITE_NAME}`,
-    template: `%s | ${SITE_NAME}`,
+    default: `Calorie Chart & Counts: Food Calories & Calorie Calculator | Low Calorie Meals & Snacks | ${SITE_NAME}`,
+    template: `%s | Calorie, Low Calorie Meals & Snacks | ${SITE_NAME}`,
   },
   description:
-    'Free USDA calorie chart and calculator. Check calories in foods and their counts, calculate daily calorie deficit, protein, and nutrition facts labels.',
+    'Free USDA food calorie chart, calorie calculator, low calorie meals & low calorie snacks. Check calories in foods and counts, calculate daily calorie deficit, and track macros.',
   keywords: [
+    'low calorie snacks',
+    'low calorie meal',
+    'low calorie meals',
+    'calorie',
+    'calories',
     'calorie calculator',
+    'Calorie Chart & Counts: Food Calories & Calorie Calculator',
     'calories in food',
     'food calorie calculator',
     'calorie deficit calculator',
@@ -63,9 +69,9 @@ export const metadata: Metadata = {
     shortcut: ['/favicon.ico'],
   },
   openGraph: {
-    title: `${SITE_NAME} — The Thoughtful Food Calorie & Macro Guide`,
+    title: `Calorie Chart & Counts: Food Calories & Calorie Calculator | Low Calorie Meals & Snacks | ${SITE_NAME}`,
     description:
-      'Look up exact calories, protein, carbs, and fat with clinical accuracy. Curated from USDA FoodData Central.',
+      'Look up exact calories, protein, carbs, and fat with clinical accuracy. Discover low calorie meals, low calorie snacks, and interactive calorie calculators.',
     url: SITE_URL,
     siteName: SITE_NAME,
     locale: 'en_US',
@@ -73,9 +79,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${SITE_NAME} — The Thoughtful Food Calorie & Macro Guide`,
+    title: `Calorie Chart & Counts: Food Calories & Calorie Calculator | Low Calorie Meals & Snacks | ${SITE_NAME}`,
     description:
-      'Look up exact calories, protein, carbs, and fat with clinical accuracy. Curated from USDA FoodData Central.',
+      'Look up exact calories, protein, carbs, and fat with clinical accuracy. Discover low calorie meals, low calorie snacks, and interactive calorie calculators.',
   },
   robots: {
     index: true,
