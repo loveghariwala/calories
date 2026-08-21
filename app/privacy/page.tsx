@@ -4,11 +4,25 @@ import { ShieldCheck, Lock, EyeOff, UserX, ChevronRight, Award } from 'lucide-re
 import { getCanonicalUrl } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy — 100% Private Local Storage (No Accounts, No Emails) | CaloriePulse',
+  title: 'Privacy Policy — 100% Private Local Storage',
   description:
-    'CaloriePulse is built on a radical privacy-first foundation. We require no name, no email, and no user registration. All daily food logs remain encrypted on your personal device.',
+    'CaloriePulse is built on a privacy-first foundation. We require no name, no email, and no user registration. All food logs stay encrypted on your device.',
   alternates: {
     canonical: getCanonicalUrl('/privacy'),
+  },
+  openGraph: {
+    title: 'Privacy Policy — 100% Private Local Storage | CaloriePulse',
+    description:
+      'CaloriePulse is built on a privacy-first foundation. We require no name, no email, and no user registration.',
+    url: getCanonicalUrl('/privacy'),
+    siteName: 'CaloriePulse',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Privacy Policy — 100% Private Local Storage | CaloriePulse',
+    description:
+      'CaloriePulse is built on a privacy-first foundation. We require no name, no email, and no user registration.',
   },
 };
 

@@ -21,28 +21,21 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `Calorie Chart & Counts: Food Calories & Calorie Calculator | Low Calorie Meals & Snacks | ${SITE_NAME}`,
-    template: `%s | Calorie, Low Calorie Meals & Snacks | ${SITE_NAME}`,
+    default: 'Calories',
+    template: '%s | CaloriePulse',
   },
   description:
-    'Free USDA food calorie chart, calorie calculator, low calorie meals & low calorie snacks. Check calories in foods and counts, calculate daily calorie deficit, and track macros.',
+    'Free USDA food calorie chart, calorie deficit calculator, low calorie meals & healthy snacks. Instant whole food nutrition facts & macro tracker.',
   keywords: [
-    'low calorie snacks',
-    'low calorie meal',
-    'low calorie meals',
-    'calorie',
-    'calories',
+    'calorie chart',
     'calorie calculator',
-    'Calorie Chart & Counts: Food Calories & Calorie Calculator',
     'calories in food',
-    'food calorie calculator',
+    'low calorie snacks',
+    'low calorie meals',
     'calorie deficit calculator',
-    'calorie chart common foods and their counts',
-    'how much calories should i eat to lose weight',
-    'calories on the nutrition facts label',
     'nutrition facts',
-    'usda food data',
-    'macro calculator',
+    'usda food database',
+    'macro tracker',
   ],
   authors: [{ name: 'CaloriePulse Editorial Team' }],
   creator: 'CaloriePulse',
@@ -69,9 +62,9 @@ export const metadata: Metadata = {
     shortcut: ['/favicon.ico'],
   },
   openGraph: {
-    title: `Calorie Chart & Counts: Food Calories & Calorie Calculator | Low Calorie Meals & Snacks | ${SITE_NAME}`,
+    title: 'CaloriePulse — Food Calorie Chart & Calorie Calculator',
     description:
-      'Look up exact calories, protein, carbs, and fat with clinical accuracy. Discover low calorie meals, low calorie snacks, and interactive calorie calculators.',
+      'Free USDA food calorie chart, calorie deficit calculator, low calorie meals & healthy snacks. Instant whole food nutrition facts & macro tracker.',
     url: SITE_URL,
     siteName: SITE_NAME,
     locale: 'en_US',
@@ -79,9 +72,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `Calorie Chart & Counts: Food Calories & Calorie Calculator | Low Calorie Meals & Snacks | ${SITE_NAME}`,
+    title: 'CaloriePulse — Food Calorie Chart & Calorie Calculator',
     description:
-      'Look up exact calories, protein, carbs, and fat with clinical accuracy. Discover low calorie meals, low calorie snacks, and interactive calorie calculators.',
+      'Free USDA food calorie chart, calorie deficit calculator, low calorie meals & healthy snacks. Instant whole food nutrition facts & macro tracker.',
   },
   robots: {
     index: true,

@@ -7,34 +7,33 @@ import { generateFaqJsonLd, getCanonicalUrl } from '@/lib/seo';
 import { Award, ChevronRight, Sparkles, Flame, Apple, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Calorie Chart: Low Calorie Snacks & Their Counts Under 100 kcal | CaloriePulse',
+  title: 'Low Calorie Snacks Under 100 Calories',
   description:
-    'Browse our low calorie snack chart and counts. Discover filling whole food snacks under 50, 100, and 150 calories with USDA protein and nutrition facts.',
+    'Browse our low calorie snack chart. Discover filling whole food snacks under 50, 100, and 150 calories with USDA protein and nutrition facts.',
   keywords: [
     'low calorie snacks',
-    'calories in food',
     'low calorie snacks under 100 calories',
     'healthy low calorie snacks',
     'filling low calorie snacks',
-    'calorie chart common foods and their counts',
+    'calorie chart',
     'snacks for weight loss',
   ],
   alternates: {
     canonical: getCanonicalUrl('/low-calorie-snacks'),
   },
   openGraph: {
-    title: 'Calorie Chart: Low Calorie Snacks & Their Counts Under 100 kcal',
+    title: 'Low Calorie Snacks Under 100 Calories | CaloriePulse',
     description:
-      'Browse our low calorie snack chart and counts. Discover filling whole food snacks under 50, 100, and 150 calories with USDA protein and nutrition facts.',
+      'Browse our low calorie snack chart. Discover filling whole food snacks under 50, 100, and 150 calories with USDA protein and nutrition facts.',
     url: getCanonicalUrl('/low-calorie-snacks'),
     siteName: 'CaloriePulse',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Calorie Chart: Low Calorie Snacks & Their Counts Under 100 kcal',
+    title: 'Low Calorie Snacks Under 100 Calories | CaloriePulse',
     description:
-      'Browse our low calorie snack chart and counts. Discover filling whole food snacks under 50, 100, and 150 calories with USDA protein and nutrition facts.',
+      'Browse our low calorie snack chart. Discover filling whole food snacks under 50, 100, and 150 calories with USDA protein and nutrition facts.',
   },
 };
 

@@ -34,18 +34,18 @@ interface CalorieCalculatorPageProps {
 export async function generateMetadata({ searchParams }: CalorieCalculatorPageProps): Promise<Metadata> {
   const { goal, calories, target } = await searchParams;
 
-  let title = 'Calorie Calculator — Daily Calorie & Calorie Deficit Calculator | CaloriePulse';
+  let title = 'Weight Loss Calorie Calculator & Deficit';
   let description =
-    'Free scientific calorie calculator based on clinical equations (Mifflin-St Jeor, Harris-Benedict, Katch-McArdle). Calculate your exact maintenance calories, TDEE, zig-zag cycling, and calorie deficit.';
+    'Free weight loss calorie calculator. Calculate calories to lose weight, daily calorie deficit, TDEE, zig-zag cycling, and fat loss macros.';
 
   if (calories) {
-    title = `${calories} Calorie Meal & Deficit Calculator — Daily Macro Plan | CaloriePulse`;
-    description = `Calculate how to eat ${calories} calories a day for fat loss or muscle gain. Exact macro breakdowns, protein targets, and TDEE calorie deficit calculations.`;
+    title = `${calories} Calorie Meal & Deficit Calculator`;
+    description = `Calculate how to eat ${calories} calories a day for fat loss or muscle gain. Exact macro breakdowns, protein targets, and TDEE calorie deficit.`;
   } else if (goal === 'weight-loss' || target === 'deficit') {
-    title = 'Calorie Deficit Calculator — Exact Calories to Lose Weight | CaloriePulse';
-    description = 'Calculate your personalized calorie deficit for safe fat loss. Determine how many calories to eat each day based on clinical equations.';
+    title = 'Calorie Calculator for Weight Loss & Deficit';
+    description = 'Calculate your personalized calorie deficit for safe fat loss. Determine exact calories to eat each day based on clinical equations.';
   } else if (goal === 'muscle-gain' || target === 'surplus') {
-    title = 'Calorie Surplus & Muscle Gain Calculator — Daily Macros | CaloriePulse';
+    title = 'Calorie Surplus & Muscle Gain Calculator';
     description = 'Calculate your calorie surplus and daily protein requirements for lean muscle building without excess fat gain.';
   }
 
@@ -55,23 +55,23 @@ export async function generateMetadata({ searchParams }: CalorieCalculatorPagePr
     title,
     description,
     keywords: [
-      'calorie calculator',
+      'weight loss calorie calculator',
+      'calorie calculator for weight loss',
+      'calculate calories to lose weight',
       'calorie deficit calculator',
+      'fat loss calorie calculator',
+      'calories to lose weight calculator',
+      'kcal weight loss calculator',
+      'calorie counter lose weight',
+      'tdee advanced calculator',
+      'calorie calculator',
       'how many calories should i eat',
-      'tdee calculator',
-      'bmr calculator',
-      'zig zag calorie calculator',
-      'macro calculator',
-      'mifflin st jeor calculator',
-      'harris benedict calculator',
-      'katch mcardle calculator',
-      'weight loss calculator',
     ],
     alternates: {
       canonical,
     },
     openGraph: {
-      title,
+      title: `${title} | CaloriePulse`,
       description,
       url: canonical,
       siteName: 'CaloriePulse',
@@ -79,7 +79,7 @@ export async function generateMetadata({ searchParams }: CalorieCalculatorPagePr
     },
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: `${title} | CaloriePulse`,
       description,
     },
   };

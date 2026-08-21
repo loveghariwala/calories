@@ -4,11 +4,25 @@ import { BookOpen, ShieldCheck, ChevronRight } from 'lucide-react';
 import { getCanonicalUrl } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: 'Terms of Service | CaloriePulse',
+  title: 'Terms of Service',
   description:
     'Terms of service and nutritional reference guidelines for CaloriePulse. Sourced from USDA FoodData Central.',
   alternates: {
     canonical: getCanonicalUrl('/terms'),
+  },
+  openGraph: {
+    title: 'Terms of Service | CaloriePulse',
+    description:
+      'Terms of service and nutritional reference guidelines for CaloriePulse. Sourced from USDA FoodData Central.',
+    url: getCanonicalUrl('/terms'),
+    siteName: 'CaloriePulse',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Terms of Service | CaloriePulse',
+    description:
+      'Terms of service and nutritional reference guidelines for CaloriePulse. Sourced from USDA FoodData Central.',
   },
 };
 

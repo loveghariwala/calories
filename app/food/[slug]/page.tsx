@@ -43,8 +43,8 @@ export async function generateMetadata({ params }: FoodPageProps): Promise<Metad
 
   if (!food) {
     return {
-      title: 'Food Not Found | CaloriePulse',
-      description: 'The requested food specimen could not be found.',
+      title: 'Food Not Found',
+      description: 'The requested food could not be found.',
     };
   }
 
@@ -67,7 +67,7 @@ export async function generateMetadata({ params }: FoodPageProps): Promise<Metad
       canonical,
     },
     openGraph: {
-      title,
+      title: `${title} | CaloriePulse`,
       description,
       url: canonical,
       siteName: 'CaloriePulse',
@@ -75,7 +75,7 @@ export async function generateMetadata({ params }: FoodPageProps): Promise<Metad
     },
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: `${title} | CaloriePulse`,
       description,
     },
   };

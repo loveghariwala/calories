@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
 
   if (!catMeta) {
     return {
-      title: 'Category Not Found | CaloriePulse',
+      title: 'Category Not Found',
       description: 'The requested food category could not be found.',
     };
   }
@@ -61,7 +61,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
       canonical,
     },
     openGraph: {
-      title,
+      title: `${title} | CaloriePulse`,
       description,
       url: canonical,
       siteName: 'CaloriePulse',
@@ -69,7 +69,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     },
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: `${title} | CaloriePulse`,
       description,
     },
   };

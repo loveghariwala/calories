@@ -12,29 +12,33 @@ import {
 import { Award, ChevronRight, ShieldCheck, Sparkles, Heart, Zap, Flame, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Anti-Inflammatory Diet — Complete Food List, Benefits & Meal Guide | CaloriePulse',
+  title: 'Anti-Inflammatory Diet: Food List & Meal Guide',
   description:
-    'Complete evidence-based guide to the anti-inflammatory diet. Discover top anti-inflammatory foods (omega-3s, polyphenols, antioxidants), foods to avoid, and a 1-day meal blueprint with USDA nutrition facts.',
+    'Complete evidence-based guide to the anti-inflammatory diet. Discover top anti-inflammatory foods (omega-3s, polyphenols, antioxidants) and foods to avoid.',
   keywords: [
     'anti inflammatory diet',
     'anti inflammatory foods',
     'anti inflammatory diet food list',
     'foods that fight inflammation',
     'anti inflammatory meal plan',
-    'what is an anti inflammatory diet',
-    'anti inflammatory foods list pdf',
     'best anti inflammatory foods',
   ],
   alternates: {
     canonical: getCanonicalUrl('/anti-inflammatory-diet'),
   },
   openGraph: {
-    title: 'Anti-Inflammatory Diet — Complete Food List, Benefits & Meal Guide',
+    title: 'Anti-Inflammatory Diet: Food List & Meal Guide | CaloriePulse',
     description:
       'Evidence-based anti-inflammatory diet guide: food lists, omega-3 sources, antioxidants, and daily meal planning.',
     url: getCanonicalUrl('/anti-inflammatory-diet'),
     siteName: 'CaloriePulse',
     type: 'article',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Anti-Inflammatory Diet: Food List & Meal Guide | CaloriePulse',
+    description:
+      'Evidence-based anti-inflammatory diet guide: food lists, omega-3 sources, antioxidants, and daily meal planning.',
   },
 };
 

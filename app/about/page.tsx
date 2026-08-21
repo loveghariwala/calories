@@ -4,11 +4,25 @@ import { Award, ShieldCheck, Heart, Sparkles, ChevronRight, UserX, Database, Sca
 import { getCanonicalUrl } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: 'About Us — The Story Behind CaloriePulse | CaloriePulse',
+  title: 'About Us — Whole Food Nutrition & Mission',
   description:
-    'CaloriePulse was created to bring transparency, clinical accuracy, and radical privacy to whole food calorie lookup and daily meal tracking. No accounts, no names, no emails.',
+    'CaloriePulse was created to bring transparency, clinical accuracy, and radical privacy to whole food calorie lookup and daily meal tracking.',
   alternates: {
     canonical: getCanonicalUrl('/about'),
+  },
+  openGraph: {
+    title: 'About Us — Whole Food Nutrition & Mission | CaloriePulse',
+    description:
+      'CaloriePulse was created to bring transparency, clinical accuracy, and radical privacy to whole food calorie lookup and daily meal tracking.',
+    url: getCanonicalUrl('/about'),
+    siteName: 'CaloriePulse',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About Us — Whole Food Nutrition & Mission | CaloriePulse',
+    description:
+      'CaloriePulse was created to bring transparency, clinical accuracy, and radical privacy to whole food calorie lookup and daily meal tracking.',
   },
 };
 

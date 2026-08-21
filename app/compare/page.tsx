@@ -9,18 +9,23 @@ import { Scale, ChevronRight, Swords, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Food Face-Off Arena — Compare Food Calories, Protein & Macros Side-by-Side | CaloriePulse',
+  title: 'Compare Food Calories & Nutrition Side-by-Side',
   description:
     'Compare any two whole foods head-to-head. Analyze calories, protein density, carbs, healthy fats, fiber, and micronutrients side-by-side.',
   alternates: {
     canonical: getCanonicalUrl('/compare'),
   },
   openGraph: {
-    title: 'Food Face-Off Arena — Side-by-Side Nutritional Comparison',
+    title: 'Compare Food Calories & Nutrition Side-by-Side | CaloriePulse',
     description: 'Compare any two whole foods head-to-head. Powered by USDA FoodData Central.',
     url: getCanonicalUrl('/compare'),
     siteName: 'CaloriePulse',
     type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Compare Food Calories & Nutrition Side-by-Side | CaloriePulse',
+    description: 'Compare any two whole foods head-to-head. Powered by USDA FoodData Central.',
   },
 };
 

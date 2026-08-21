@@ -15,38 +15,27 @@ export function getCanonicalUrl(path: string): string {
 
 /**
  * Generate high-CTR dynamic SEO Title for a Food Item
- * Modeled after top authority structures (FDA Nutrition Facts + WebMD Calorie Counts)
- * Keeps strictly within 50-65 chars for Google SERP
+ * Front-loads the exact query: "[Food Name] Calories & Nutrition Facts ([Serving])"
+ * Kept concise (under 42 chars) so the layout template adds " | CaloriePulse" to stay strictly within 55-60 chars for Google SERP
  */
 export function generateFoodMetaTitle(food: FoodItem): string {
   const defaultServing = food.servings.find((s) => s.isDefault) || food.servings[0];
-  const ratio = (defaultServing ? defaultServing.weightGrams : 100) / 100;
-  const cals = Math.round(food.nutrientsPer100g.calories * ratio);
-  const prot = Math.round(food.nutrientsPer100g.protein * ratio * 10) / 10;
-  const netCarbs = Math.max(0, Math.round((food.nutrientsPer100g.carbohydrates - (food.nutrientsPer100g.fiber || 0)) * ratio * 10) / 10);
   const servingLabel = defaultServing ? defaultServing.label : '100g';
 
-  const isHighProtein = (food.nutrientsPer100g.protein * 4) / (food.nutrientsPer100g.calories || 1) >= 0.25 || food.nutrientsPer100g.protein >= 12;
-  const isKeto = (food.nutrientsPer100g.carbohydrates - (food.nutrientsPer100g.fiber || 0)) <= 5 && food.nutrientsPer100g.fat >= 5;
-  const isLowCal = food.nutrientsPer100g.calories <= 55;
+  let title = `${food.name} Calories & Nutrition Facts (${servingLabel})`;
 
-  let title = '';
-  if (isHighProtein && prot > 0) {
-    title = `${food.name} Calories, Protein (${prot}g) & Nutrition Facts | ${SITE_NAME}`;
-  } else if (isKeto) {
-    title = `${food.name} Calories, Net Carbs (${netCarbs}g) & Nutrition Facts | ${SITE_NAME}`;
-  } else if (isLowCal) {
-    title = `${food.name} Calories (${cals} kcal) & Weight Loss Nutrition Facts | ${SITE_NAME}`;
-  } else {
-    title = `${food.name} Calories & Nutrition Facts Label (${servingLabel}) | ${SITE_NAME}`;
+  if (title.length > 42) {
+    title = `${food.name} Calories & Nutrition Facts`;
   }
-
-  // Optimize for SERP width (max 65 chars)
-  if (title.length > 65) {
-    title = `${food.name} Calories & Nutrition Facts (${servingLabel}) | ${SITE_NAME}`;
+  if (title.length > 42) {
+    title = `${food.name} Calories & Macros (${servingLabel})`;
   }
-  if (title.length > 65) {
-    title = `${food.name} Calories & Macro Counts | ${SITE_NAME}`;
+  if (title.length > 42) {
+    title = `${food.name} Calories & Macros`;
+  }
+  if (title.length > 42) {
+    const maxNameLen = Math.max(10, 42 - ' Calories'.length);
+    title = `${food.name.slice(0, maxNameLen).trim()} Calories`;
   }
 
   return title;
@@ -54,7 +43,7 @@ export function generateFoodMetaTitle(food: FoodItem): string {
 
 /**
  * Generate high-CTR dynamic SEO Description for a Food Item
- * Target: 145-155 chars with exact numbers for maximum click-through rate
+ * Target: 140-155 chars with exact numbers for maximum click-through rate
  */
 export function generateFoodMetaDescription(food: FoodItem): string {
   const defaultServing = food.servings.find((s) => s.isDefault) || food.servings[0];
@@ -64,21 +53,35 @@ export function generateFoodMetaDescription(food: FoodItem): string {
   const prot = Math.round(food.nutrientsPer100g.protein * ratio * 10) / 10;
   const carbs = Math.round(food.nutrientsPer100g.carbohydrates * ratio * 10) / 10;
   const fat = Math.round(food.nutrientsPer100g.fat * ratio * 10) / 10;
-  const netCarbs = Math.max(0, Math.round((food.nutrientsPer100g.carbohydrates - (food.nutrientsPer100g.fiber || 0)) * ratio * 10) / 10);
   const serving = defaultServing ? defaultServing.label : '100g';
 
-  return `There are ${cals} calories in ${food.name} (${serving}). Full USDA nutrition facts label: ${prot}g protein, ${carbs}g carbs (${netCarbs}g net carbs), ${fat}g fat & exercise burn time.`;
+  return `There are ${cals} calories in ${food.name} (${serving}). USDA nutrition facts: ${prot}g protein, ${carbs}g carbs, ${fat}g fat & exercise burn time.`;
 }
 
 /**
  * Generate Category SEO Title
- * Modeled after WebMD's #1 ranking "Calorie Chart: Common Foods and Their Counts"
+ * Targets high-intent search queries like "Fast Food Nutrition Facts", "Fruit Calories", "Nuts Macronutrients"
  */
 export function generateCategoryMetaTitle(categoryName: string, count?: number): string {
-  const countSuffix = count && count > 0 ? ` (${count}+ Foods)` : '';
-  const title = `Calorie Chart: ${categoryName} Foods & Their Counts${countSuffix} | ${SITE_NAME}`;
-  if (title.length > 65) {
-    return `Calorie Chart: ${categoryName} Foods & Counts | ${SITE_NAME}`;
+  const catLower = categoryName.toLowerCase();
+  let title = '';
+
+  if (catLower.includes('fast food')) {
+    title = 'Fast Food Nutrition Facts & Calorie Chart';
+  } else if (catLower.includes('fruit')) {
+    title = 'Fruit Calories & Nutrition Facts Chart';
+  } else if (catLower.includes('nut') || catLower.includes('legume')) {
+    title = 'Nuts & Legumes Macronutrients & Calories';
+  } else if (catLower.includes('meat') || catLower.includes('poultry')) {
+    title = 'Meat & Poultry Calories & Protein Chart';
+  } else if (catLower.includes('seafood')) {
+    title = 'Seafood Calories & Protein Nutrition Chart';
+  } else {
+    title = `${categoryName} Nutrition Facts & Calorie Chart`;
+  }
+
+  if (title.length > 44) {
+    title = `${categoryName} Calorie Chart`;
   }
   return title;
 }
@@ -96,9 +99,12 @@ export function generateCategoryMetaDescription(categoryName: string, count?: nu
  * Generate Comparison SEO Title
  */
 export function generateComparisonMetaTitle(food1: FoodItem, food2: FoodItem): string {
-  const title = `${food1.name} vs ${food2.name}: Calories & Protein Comparison | ${SITE_NAME}`;
-  if (title.length > 65) {
-    return `${food1.name} vs ${food2.name} Calories & Macros | ${SITE_NAME}`;
+  let title = `${food1.name} vs ${food2.name}: Calories & Nutrition`;
+  if (title.length > 42) {
+    title = `${food1.name} vs ${food2.name} Calories`;
+  }
+  if (title.length > 42) {
+    title = `${food1.name.slice(0, 18)} vs ${food2.name.slice(0, 18)} Calories`;
   }
   return title;
 }

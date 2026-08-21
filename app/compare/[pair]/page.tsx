@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: ComparisonPairPageProps): Pro
   const { pair } = await params;
   const parts = pair.split('-vs-');
   if (parts.length !== 2) {
-    return { title: 'Comparison | CaloriePulse' };
+    return { title: 'Comparison' };
   }
 
   let food1 = getFoodBySlug(parts[0]);
@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: ComparisonPairPageProps): Pro
   }
 
   if (!food1 || !food2) {
-    return { title: 'Food Comparison | CaloriePulse' };
+    return { title: 'Food Comparison' };
   }
 
   const title = generateComparisonMetaTitle(food1, food2);
@@ -62,7 +62,7 @@ export async function generateMetadata({ params }: ComparisonPairPageProps): Pro
       canonical,
     },
     openGraph: {
-      title,
+      title: `${title} | CaloriePulse`,
       description,
       url: canonical,
       siteName: 'CaloriePulse',
@@ -70,7 +70,7 @@ export async function generateMetadata({ params }: ComparisonPairPageProps): Pro
     },
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: `${title} | CaloriePulse`,
       description,
     },
   };

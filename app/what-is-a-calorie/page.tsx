@@ -25,66 +25,70 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'What is a Calorie? Scientific Definition, Nutrition & Energy Guide | CaloriePulse',
+  title: 'What is a Calorie? Definition & Kcal Meaning',
   description:
-    'A calorie is a unit of energy. Discover the scientific definition of calories in physics vs human nutrition, the 4-4-9 macro rule, and how calories work for weight loss.',
+    'What is a calorie? Discover the definition of calorie and kcal meaning in food. Learn how many kcal are in a cal, the 4-4-9 macro rule, and energy intake.',
   keywords: [
-    'calorie',
     'what is a calorie',
-    'what is a calorie in food',
-    'what is a calorie in physics',
+    'calorie definition',
+    'define the word calorie',
+    'kcal meaning',
+    'whats kcal',
+    'kcal definition',
+    'what is kcal in food',
+    'what are calories',
+    'how many kcal are in a cal',
     'definition of calorie',
-    'how many calories should i eat',
-    'calories in food',
-    'calorie calculator',
-    'difference between calorie and kilocalorie',
-    'atwater system macros',
+    'what is a calorie in terms of food',
+    'what is the meaning of calories',
+    'calories definition health',
+    'a calorie is a unit of',
   ],
   alternates: {
     canonical: getCanonicalUrl('/what-is-a-calorie'),
   },
   openGraph: {
-    title: 'What is a Calorie? Scientific Definition, Nutrition & Energy Guide',
+    title: 'What is a Calorie? Definition & Kcal Meaning | CaloriePulse',
     description:
-      'The definitive clinical guide to understanding calories: physics definition, dietary kilocalories, macronutrient energy density, and metabolic burn rates.',
+      'What is a calorie? Discover the definition of calorie and kcal meaning in food. Learn how many kcal are in a cal, the 4-4-9 macro rule, and energy intake.',
     url: getCanonicalUrl('/what-is-a-calorie'),
     siteName: SITE_NAME,
     type: 'article',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'What is a Calorie? Scientific Definition, Nutrition & Energy Guide',
+    title: 'What is a Calorie? Definition & Kcal Meaning | CaloriePulse',
     description:
-      'The definitive clinical guide to understanding calories: physics definition, dietary kilocalories, macronutrient energy density, and metabolic burn rates.',
+      'What is a calorie? Discover the definition of calorie and kcal meaning in food. Learn how many kcal are in a cal, the 4-4-9 macro rule, and energy intake.',
   },
 };
 
 export default function WhatIsACaloriePage() {
   const calorieFaqs = [
     {
-      question: 'What exactly is a calorie?',
+      question: 'What is a calorie and what is the scientific calorie definition?',
       answer:
-        'A calorie is a unit of measurement for energy. In physics, one small calorie (cal) is the energy required to raise the temperature of 1 gram of water by 1°C. In dietary nutrition, 1 food Calorie (kcal) equals 1,000 small calories or 4.184 kilojoules (kJ).',
+        'A calorie is a unit of measurement for energy. In physics, one small calorie (cal) is the heat energy required to raise the temperature of 1 gram of water by 1°C. In dietary nutrition, 1 food Calorie (kcal) equals 1,000 small calories or 4.184 kilojoules (kJ).',
     },
     {
-      question: 'What is a calorie in food?',
+      question: 'What does kcal mean and what is kcal in food?',
       answer:
-        'In food, calories represent the chemical energy stored in macronutrients: carbohydrates (4 kcal/g), proteins (4 kcal/g), and fats (9 kcal/g). When digested and metabolized, your body converts these calories into adenosine triphosphate (ATP) to fuel muscular work, organ function, and cellular repair.',
+        'Kcal stands for kilocalorie. In food and nutrition, "kcal" and "Calorie" (with a capital C) are used interchangeably. When a nutrition facts label indicates a snack has 150 calories, it scientifically contains 150 kcal of metabolic energy.',
     },
     {
-      question: 'What is the difference between a calorie (cal) and a kilocalorie (kcal)?',
+      question: 'How many kcal are in a cal?',
       answer:
-        'A small calorie (written with a lowercase "c") is a tiny scientific unit. A food Calorie (written with a capital "C" or as "kcal") equals 1,000 small calories. When food packaging states "200 Calories", it technically means 200 kilocalories (kcal).',
+        'There is 1 kcal in 1,000 small calories (cal). A small calorie is a chemistry laboratory measurement, whereas human dietary energy is always measured in kilocalories (kcal).',
     },
     {
-      question: 'How many calories should an adult eat per day?',
+      question: 'What is a calorie in terms of food energy?',
       answer:
-        'Average guidelines recommend approximately 2,000 calories per day for women and 2,500 calories for men. However, individual requirements depend on your Basal Metabolic Rate (BMR), age, height, weight, and daily physical activity level (TDEE).',
+        'In food, calories represent the chemical energy stored in macronutrients: carbohydrates (4 kcal/g), proteins (4 kcal/g), and dietary fats (9 kcal/g). Your body converts these calories into ATP to fuel basal metabolism, organ function, and physical exercise.',
     },
     {
-      question: 'Is 1000 calories a day good for weight loss?',
+      question: 'How many calories should an adult eat to lose weight?',
       answer:
-        'For most adults, eating only 1,000 calories a day is excessively restrictive and can lead to metabolic slowdown, muscle wasting, and nutrient deficiencies. A safe, clinically recommended deficit is 300 to 500 calories below your maintenance TDEE.',
+        'To lose weight safely, health authorities recommend creating a moderate calorie deficit of 300 to 500 calories below your Total Daily Energy Expenditure (TDEE). Use our free Weight Loss Calorie Calculator to find your target.',
     },
   ];
 

@@ -7,34 +7,32 @@ import { generateFaqJsonLd, getCanonicalUrl } from '@/lib/seo';
 import { Award, ChevronRight, Sparkles, Flame, Utensils, ArrowRight, Dumbbell } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Calorie Chart: Low Calorie Meals & Meal Ideas for Weight Loss | CaloriePulse',
+  title: 'Low Calorie Meals & High Protein Recipes',
   description:
-    'Browse our low calorie meals chart and recipe ideas under 300, 400, and 500 calories. High protein, nutrient-dense meals with USDA nutrition facts labels.',
+    'Browse low calorie meals and recipe ideas under 300, 400, and 500 calories. High protein, nutrient-dense meals with USDA nutrition facts labels.',
   keywords: [
     'low calorie meals',
-    'calories in food',
     'high protein low calorie meals',
     '300 calorie meals',
     '400 calorie meals',
-    'calorie chart common foods and their counts',
     'healthy meals for weight loss',
   ],
   alternates: {
     canonical: getCanonicalUrl('/low-calorie-meals'),
   },
   openGraph: {
-    title: 'Calorie Chart: Low Calorie Meals & Meal Ideas for Weight Loss',
+    title: 'Low Calorie Meals & High Protein Recipes | CaloriePulse',
     description:
-      'Browse our low calorie meals chart and recipe ideas under 300, 400, and 500 calories. High protein, nutrient-dense meals with USDA nutrition facts labels.',
+      'Browse low calorie meals and recipe ideas under 300, 400, and 500 calories. High protein, nutrient-dense meals with USDA nutrition facts labels.',
     url: getCanonicalUrl('/low-calorie-meals'),
     siteName: 'CaloriePulse',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Calorie Chart: Low Calorie Meals & Meal Ideas for Weight Loss',
+    title: 'Low Calorie Meals & High Protein Recipes | CaloriePulse',
     description:
-      'Browse our low calorie meals chart and recipe ideas under 300, 400, and 500 calories. High protein, nutrient-dense meals with USDA nutrition facts labels.',
+      'Browse low calorie meals and recipe ideas under 300, 400, and 500 calories. High protein, nutrient-dense meals with USDA nutrition facts labels.',
   },
 };
 
